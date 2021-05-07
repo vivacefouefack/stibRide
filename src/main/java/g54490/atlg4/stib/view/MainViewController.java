@@ -2,8 +2,8 @@ package g54490.atlg4.stib.view;
 
 /**
  *
- * @author 54490@etu.he2b.be
+ * @author vivac
  */
-public class View {
+public class MainViewController {
     
 }

@@ -1,4 +1,4 @@
-package g54490.atlg4.stibride.repository;
+package g54490.atlg4.stib.repository;
 
 
 /**
