@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  *
- * @author vivac
+ * @author 54490@etu.he2b.be
  */
 public class DijkstraAlgorithm {
     

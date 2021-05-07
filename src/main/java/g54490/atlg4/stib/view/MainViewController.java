@@ -39,9 +39,18 @@ public class MainViewController implements Initializable {
 
     }
 
+    /**
+     * launches the search algorithm and displays the result in a new window
+     * when you click on the search button
+     *
+     * @param event ActionEvent;
+     */
     @FXML
     private void search(ActionEvent event) {
-
+        this.erreur.setText("");
+        if (origine.getValue() == null || destination.getValue() == null) {
+            this.erreur.setText("? erreur veuillez selectionner l'origine et la destination");
+        }
     }
 
     private AnchorPane parentHome;
@@ -60,9 +69,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             StationRepository stations = new StationRepository();
-            System.out.println("ppp");
             this.origine.setItems(stations.getStationName());
-            System.out.println("toppp");
             this.destination.setItems(stations.getStationName());
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
