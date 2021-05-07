@@ -3,7 +3,6 @@ package g54490.atlg4.stib.repository;
 import g54490.atlg4.stib.dto.Dto;
 import java.util.List;
 
-
 /**
  *
  * @author 54490@etu.he2b.be
@@ -48,7 +47,3 @@ public interface Dao<K, T extends Dto<K>> {
      */
     T select(K key);
 }
-
-
-   
-
