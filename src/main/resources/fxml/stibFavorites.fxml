@@ -10,17 +10,17 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g54490.atlg4.stibride.view.MainViewFavoritesControl">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g54490.atlg4.stib.view.FavoriteViewController">
    <children>
-      <ImageView fx:id="nbStation" fitHeight="595.0" fitWidth="967.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="595.0" fitWidth="967.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../icons/m7.jpg" />
          </image>
       </ImageView>
       <TableView fx:id="tableView" layoutX="394.0" layoutY="35.0" opacity="0.5" prefHeight="485.0" prefWidth="498.0" AnchorPane.bottomAnchor="98.6" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="30.0">
         <columns>
-          <TableColumn fx:id="nomFavoris" prefWidth="261.5999755859375" text="Stations" />
-          <TableColumn fx:id="modification" prefWidth="236.0" text="Lignes" />
+          <TableColumn fx:id="stations" prefWidth="261.5999755859375" text="Stations" />
+          <TableColumn fx:id="lignes" prefWidth="236.0" text="Lignes" />
         </columns>
       </TableView>
       <Button fx:id="quitter" layoutX="795.0" layoutY="508.0" mnemonicParsing="false" onAction="#actionQuitter" text="Quitter">

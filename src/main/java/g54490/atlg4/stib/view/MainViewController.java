@@ -22,14 +22,25 @@ import org.controlsfx.control.SearchableComboBox;
  */
 public class MainViewController implements Initializable {
 
-    @FXML private SearchableComboBox<String> destination;
-    @FXML private SearchableComboBox<String> origine;
-    @FXML private ImageView image1;
-    @FXML private AnchorPane parent;
-    @FXML private Button search;
-    @FXML private Label erreur;
-    @FXML void launchFavoritePage(ActionEvent event) {
+    @FXML
+    private SearchableComboBox<String> destination;
+    @FXML
+    private SearchableComboBox<String> origine;
+    @FXML
+    private ImageView image1;
+    @FXML
+    private AnchorPane parent;
+    @FXML
+    private Button search;
+    @FXML
+    private Label erreur;
 
+    @FXML
+    void launchFavoritePage(ActionEvent event) throws IOException, Exception {
+        FavoriteView view = new FavoriteView();
+        FavoriteViewController mainControl = view.getFxmlLoader().getController();
+        //mainControl.AddData();
+        view.start(new Stage());
     }
 
     /**
@@ -38,7 +49,8 @@ public class MainViewController implements Initializable {
      *
      * @param event ActionEvent;
      */
-    @FXML private void search(ActionEvent event) {
+    @FXML
+    private void search(ActionEvent event) {
         try {
             this.erreur.setText("");
             if (origine.getValue() == null || destination.getValue() == null) {
@@ -79,9 +91,10 @@ public class MainViewController implements Initializable {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * getter.
+     *
      * @return a button.
      */
     public Button getSearch() {
