@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -36,6 +37,7 @@ public class ResultViewController implements Initializable{
     @FXML void actionQuitter(ActionEvent event) {
         Stage stage = (Stage) quitter.getScene().getWindow();
         search.setDisable(false);
+        this.itemMesfavoris.setDisable(false);
         stage.close();
     }
 
@@ -52,6 +54,7 @@ public class ResultViewController implements Initializable{
     private String origin;
     private String destination;
     private Button search;
+    private MenuItem itemMesfavoris;
 
     /**
      * constructor of mainViewResultControl.
@@ -91,8 +94,9 @@ public class ResultViewController implements Initializable{
         this.nbStations.setText("Nomnbres de stations : " + r.getNbtation());
     }
 
-    public void closeStage(Button button) {
+    public void disableButton(Button button,MenuItem item) {
         this.search = button;
+        this.itemMesfavoris=item;
     }
 
 }

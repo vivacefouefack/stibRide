@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,24 +23,22 @@ import org.controlsfx.control.SearchableComboBox;
  */
 public class MainViewController implements Initializable {
 
-    @FXML
-    private SearchableComboBox<String> destination;
-    @FXML
-    private SearchableComboBox<String> origine;
-    @FXML
-    private ImageView image1;
-    @FXML
-    private AnchorPane parent;
-    @FXML
-    private Button search;
-    @FXML
-    private Label erreur;
+    @FXML private SearchableComboBox<String> destination;
+    @FXML private SearchableComboBox<String> origine;
+    @FXML private MenuItem itemMesfavoris;
+    @FXML private ImageView image1;
+    @FXML private AnchorPane parent;
+    @FXML private Button search;
+    @FXML private Label erreur;
 
     @FXML
     void launchFavoritePage(ActionEvent event) throws IOException, Exception {
         FavoriteView view = new FavoriteView();
         FavoriteViewController mainControl = view.getFxmlLoader().getController();
         //mainControl.AddData();
+        mainControl.disableButton(search, itemMesfavoris);
+        this.itemMesfavoris.setDisable(true);
+        this.search.setDisable(true);
         view.start(new Stage());
     }
 
@@ -59,10 +58,11 @@ public class MainViewController implements Initializable {
                 ResultView result = new ResultView();
                 ResultViewController mainController = result.fxmlLoader.getController();
                 mainController.AddResultData(origine.getValue(), destination.getValue());
-                mainController.closeStage(search);
+                mainController.disableButton(search,itemMesfavoris);
                 result.start(new Stage());
-                mainController.closeStage(search);
+                mainController.disableButton(search,itemMesfavoris);
                 this.search.setDisable(true);
+                this.itemMesfavoris.setDisable(true);
             }
 
         } catch (Exception e) {
@@ -79,6 +79,7 @@ public class MainViewController implements Initializable {
         this.destination = new SearchableComboBox<String>();
         this.origine = new SearchableComboBox<String>();
         this.erreur = new Label();
+        this.itemMesfavoris=new MenuItem();
     }
 
     @Override
@@ -90,15 +91,6 @@ public class MainViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * getter.
-     *
-     * @return a button.
-     */
-    public Button getSearch() {
-        return search;
     }
 
 }
