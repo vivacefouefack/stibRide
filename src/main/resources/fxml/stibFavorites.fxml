@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g54490.atlg4.stibride.view.MainViewFavoritesControl">
+   <children>
+      <ImageView fx:id="nbStation" fitHeight="595.0" fitWidth="967.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../icons/m7.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableView" layoutX="394.0" layoutY="35.0" opacity="0.5" prefHeight="485.0" prefWidth="498.0" AnchorPane.bottomAnchor="98.6" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="30.0">
+        <columns>
+          <TableColumn fx:id="nomFavoris" prefWidth="261.5999755859375" text="Stations" />
+          <TableColumn fx:id="modification" prefWidth="236.0" text="Lignes" />
+        </columns>
+      </TableView>
+      <Button fx:id="quitter" layoutX="795.0" layoutY="508.0" mnemonicParsing="false" onAction="#actionQuitter" text="Quitter">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="886.0" layoutY="572.0" prefHeight="18.0" prefWidth="66.0" text="version 1.0" textFill="#8c8b8b">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <SearchableComboBox fx:id="searchFavaris" layoutX="89.0" layoutY="213.0" prefHeight="26.0" prefWidth="234.0" />
+      <Label layoutX="156.0" layoutY="177.0" prefHeight="35.0" prefWidth="66.0" text="Favoris" textFill="#ebebeb">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="supprimer" layoutX="247.0" layoutY="268.0" mnemonicParsing="false" onAction="#actionSupprimer" text="Supprimer">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="modifier" layoutX="173.0" layoutY="268.0" mnemonicParsing="false" onAction="#actionModifier" text="Modifier">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="consulter" layoutX="89.0" layoutY="268.0" mnemonicParsing="false" onAction="#actionConsulter" text="Consulter">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="erreurSelection" layoutX="75.0" layoutY="346.0" prefHeight="26.0" prefWidth="258.0" textFill="#ca0101">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="confirmSuppressio" layoutX="89.0" layoutY="351.0" prefHeight="26.0" prefWidth="244.0" textFill="#51dd15">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
