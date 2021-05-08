@@ -4,6 +4,7 @@ import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.model.ResultData;
 import g54490.atlg4.stib.model.Search;
 import g54490.atlg4.stib.repository.FavoriteRepository;
+import g54490.atlg4.stib.repository.StationRepository;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -22,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -48,15 +50,27 @@ public class FavoriteViewController implements Initializable {
     @FXML
     private SearchableComboBox<String> searchFavaris;
     @FXML
-    private Button supprimer;
-    @FXML
-    private Button modifier;
-    @FXML
-    private Button consulter;
-    @FXML
     private Label erreurSelection;
     @FXML
     private Label confirmSuppressio;
+
+    @FXML
+    private TextField nouveauNom;
+
+    @FXML
+    private SearchableComboBox<String> nouvelleOri;
+
+    @FXML
+    private SearchableComboBox<String> nouvelleDes;
+
+    @FXML
+    private Button ok;
+
+    @FXML
+    void actionOk(ActionEvent event) {
+
+        disableButtons(true);
+    }
 
     @FXML
     void actionConsulter(ActionEvent event) throws IOException {
@@ -76,7 +90,7 @@ public class FavoriteViewController implements Initializable {
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
         } else {
-
+            disableButtons(false);
         }
     }
 
@@ -100,12 +114,12 @@ public class FavoriteViewController implements Initializable {
             dialogC.setContentText("etes-vous sur de vouloir supprimer ce favori ?");
             Optional<ButtonType> answer = dialogC.showAndWait();
             if (answer.get() == ButtonType.OK) {
-                 this.myfavorites.remove(searchFavaris.getValue());
-                this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue() 
+                this.myfavorites.remove(searchFavaris.getValue());
+                this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue()
                         + " a été supprimé de la liste de vos favoris");
-            } else {             
-               this.confirmSuppressio.setText("Opération annulée");
-            }       
+            } else {
+                this.confirmSuppressio.setText("Opération annulée");
+            }
         }
     }
 
@@ -122,6 +136,10 @@ public class FavoriteViewController implements Initializable {
         this.nbStation = new Label();
         this.erreurSelection = new Label();
         this.myfavorites = new FavoriteRepository();
+        this.ok = new Button();
+        this.nouveauNom = new TextField();
+        this.nouvelleOri = new SearchableComboBox<>();
+        this.nouvelleDes = new SearchableComboBox<>();
 
     }
 
@@ -142,16 +160,34 @@ public class FavoriteViewController implements Initializable {
         this.stations.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         this.lignes.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
         try {
+            StationRepository stations=new StationRepository();
             this.searchFavaris.setItems(myfavorites.getFavoritesName());
+            this.nouvelleOri.setItems(stations.getStationName());
+            this.nouvelleDes.setItems(stations.getStationName());
         } catch (IOException ex) {
             Logger.getLogger(FavoriteViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        disableButtons(true);
     }
 
     public void disableButton(Button button, MenuItem item) {
         this.search = button;
         this.itemMesfavoris = item;
+    }
+
+    public void disableButtons(Boolean disable) {
+        if (disable) {
+            this.ok.setDisable(disable);
+            this.nouveauNom.setDisable(disable);
+            this.nouvelleOri.setDisable(disable);
+            this.nouvelleDes.setDisable(disable);
+        } else {
+            this.ok.setDisable(disable);
+            this.nouveauNom.setDisable(disable);
+            this.nouvelleOri.setDisable(disable);
+            this.nouvelleDes.setDisable(disable);
+        }
+
     }
 
 }
