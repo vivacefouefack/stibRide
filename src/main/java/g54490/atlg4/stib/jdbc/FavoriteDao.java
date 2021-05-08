@@ -15,49 +15,48 @@ import java.util.List;
  *
  * @author 54490@etu.he2b.be
  */
-public class FavoriteDao  implements Dao<String, FavoritesDto> {
-    
+public class FavoriteDao implements Dao<String, FavoritesDto> {
+
     private Connection connexion;
 
     /**
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
-    public FavoriteDao () throws IOException {
-       connexion = DatabaseManager.getInstance().getConnection();
+    public FavoriteDao() throws IOException {
+        connexion = DatabaseManager.getInstance().getConnection();
 
     }
 
     /**
-     * 
-     * @return
-     * @throws IOException 
+     *
+     * @return @throws IOException
      */
-    public static FavoriteDao  getInstance() throws IOException {
+    public static FavoriteDao getInstance() throws IOException {
         return FavoriteDaoHolder.getInstance();
     }
-    
+
     /**
-     * 
+     *
      */
     private static class FavoriteDaoHolder {
 
-        private static FavoriteDao  getInstance() throws IOException{
+        private static FavoriteDao getInstance() throws IOException {
             return new FavoriteDao();
         }
     }
-    
+
     /**
-     * 
+     *
      * @param item
-     * @return 
+     * @return
      */
     @Override
     public String insert(FavoritesDto item) {
         if (item == null) {
             throw new IllegalArgumentException("Aucune élément donné en paramètre");
         }
-        String name="";
+        String name = "";
         String sql = "INSERT INTO FAVORITES(name,origine,destination) values(?, ? ,?)";
         try (PreparedStatement pstmt = connexion.prepareStatement(sql)) {
             pstmt.setString(1, item.getKey());
@@ -67,7 +66,7 @@ public class FavoriteDao  implements Dao<String, FavoritesDto> {
 
             ResultSet result = pstmt.getGeneratedKeys();
             while (result.next()) {
-                name= result.getString(2);
+                name = result.getString(2);
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -76,8 +75,8 @@ public class FavoriteDao  implements Dao<String, FavoritesDto> {
     }
 
     /**
-     * 
-     * @param name 
+     *
+     * @param name
      */
     @Override
     public void delete(String name) {
@@ -94,8 +93,8 @@ public class FavoriteDao  implements Dao<String, FavoritesDto> {
     }
 
     /**
-     * 
-     * @param item 
+     *
+     * @param item
      */
     @Override
     public void update(FavoritesDto item) {
@@ -114,36 +113,48 @@ public class FavoriteDao  implements Dao<String, FavoritesDto> {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public List<FavoritesDto> selectAll() {
-        String query="SELECT * FROM FAVORITES";
-        List<FavoritesDto> dtos=new ArrayList<>();
+        String query = "SELECT * FROM FAVORITES";
+        List<FavoritesDto> dtos = new ArrayList<>();
         try {
             Statement statement = connexion.createStatement();
-            ResultSet result=statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                FavoritesDto oneFavoti = new FavoritesDto(result.getString(1), result.getString(2),result.getString(3));
+                FavoritesDto oneFavoti = new FavoritesDto(result.getString(1), result.getString(2), result.getString(3));
                 dtos.add(oneFavoti);
             }
         } catch (SQLException e) {
-            System.out.println("erreur "+ e.getMessage());
+            System.out.println("erreur " + e.getMessage());
         }
         return dtos;
     }
 
     @Override
     public FavoritesDto select(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        String query = "SELECT * FROM FAVORITES WHERE name=?";
+        FavoritesDto dto = null;
+        try (PreparedStatement pstmt = connexion.prepareStatement(query)) {
+            pstmt.setString(1, key);
+            ResultSet result = pstmt.executeQuery();
+            dto = new FavoritesDto(result.getString(1), result.getString(2), result.getString(3));
+
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        return dto;
     }
-    
+
     public static void main(String[] args) throws IOException {
-        FavoriteDao f=new FavoriteDao();
+        FavoriteDao f = new FavoriteDao();
         f.delete("travail-sport");
-       // String r=f.insert(new FavoritesDto("maison-tra", "HANKAR","PARC"));
-       // System.out.println("nom du favori : "+r);
+        System.out.println(f.select("test").getOrigin());
+
+        // String r=f.insert(new FavoritesDto("maison-tra", "HANKAR","PARC"));
+        // System.out.println("nom du favori : "+r);
     }
-    
+
 }

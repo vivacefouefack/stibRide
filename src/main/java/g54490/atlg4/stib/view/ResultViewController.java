@@ -84,7 +84,7 @@ public class ResultViewController implements Initializable{
         if (this.tableView != null) {
             this.tableView.getItems().clear();
         }
-        this.origin = origin;
+        this.origin = origin; 
         this.destination = destination;
         Search r = new Search(origin, destination);
         List<ResultData> data = r.getResultData();

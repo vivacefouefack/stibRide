@@ -35,7 +35,6 @@ public class MainViewController implements Initializable {
     void launchFavoritePage(ActionEvent event) throws IOException, Exception {
         FavoriteView view = new FavoriteView();
         FavoriteViewController mainControl = view.getFxmlLoader().getController();
-        //mainControl.AddData();
         mainControl.disableButton(search, itemMesfavoris);
         this.itemMesfavoris.setDisable(true);
         this.search.setDisable(true);
