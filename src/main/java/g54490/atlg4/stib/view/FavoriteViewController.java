@@ -99,16 +99,13 @@ public class FavoriteViewController implements Initializable {
             dialogC.setHeaderText(null);
             dialogC.setContentText("etes-vous sur de vouloir supprimer ce favori ?");
             Optional<ButtonType> answer = dialogC.showAndWait();
-            if (answer.get() != ButtonType.OK) {
-                this.confirmSuppressio.setText("Opération annulée");
-            } else {             
-                this.myfavorites.remove(searchFavaris.getValue());
+            if (answer.get() == ButtonType.OK) {
+                 this.myfavorites.remove(searchFavaris.getValue());
                 this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue() 
                         + " a été supprimé de la liste de vos favoris");
-            }
-
-            this.myfavorites.remove(searchFavaris.getValue());
-            this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue() + " a été supprimé de la liste de vos favoris");
+            } else {             
+               this.confirmSuppressio.setText("Opération annulée");
+            }       
         }
     }
 
