@@ -86,12 +86,12 @@ public class ResultViewController implements Initializable{
         }
         this.origin = origin; 
         this.destination = destination;
-        Search r = new Search(origin, destination);
-        List<ResultData> data = r.getResultData();
+        Search search = new Search(origin, destination);
+        List<ResultData> data = search.getResultData();
         for (ResultData oneLine : data) {
             this.tableView.getItems().add(oneLine);
         }
-        this.nbStations.setText("Nomnbres de stations : " + r.getNbtation());
+        this.nbStations.setText("Nomnbres de stations : " + search.getNbtation());
     }
 
     public void disableButton(Button button,MenuItem item) {

@@ -49,8 +49,7 @@ public class FavoriteViewController implements Initializable {
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
         } else {
-            FavoritesRepository favorites = new FavoritesRepository();
-            FavoritesDto dto=favorites.selectOne(searchFavaris.getValue());
+            FavoritesDto dto=myfavorites.get(searchFavaris.getValue());
             this.AddResultData(dto.getOrigin(), dto.getDestination());
         }
 
@@ -72,7 +71,8 @@ public class FavoriteViewController implements Initializable {
         stage.close();
     }
 
-    @FXML void actionSupprimer(ActionEvent event) {
+    @FXML
+    void actionSupprimer(ActionEvent event) {
         this.erreurSelection.setText("");
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
@@ -114,11 +114,11 @@ public class FavoriteViewController implements Initializable {
         this.stations.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         this.lignes.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
         try {
-            FavoritesRepository allFavorite = new FavoritesRepository();
-            this.searchFavaris.setItems(allFavorite.getStationName());
+            this.searchFavaris.setItems(myfavorites.getFavoritesName());
         } catch (IOException ex) {
             Logger.getLogger(FavoriteViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
 
     public void disableButton(Button button, MenuItem item) {
