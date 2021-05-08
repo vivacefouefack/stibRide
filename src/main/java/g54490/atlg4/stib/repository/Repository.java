@@ -16,7 +16,7 @@ public interface Repository<K, T extends Dto<K>> {
      * @param item the element to add.
      * @return the element's key, usefull when the key is auto-generated.
      */
-    K add(T item);
+    K add(T item); 
 
     /**
      * Removes the element of the specific key.

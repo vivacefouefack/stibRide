@@ -3,6 +3,7 @@ package g54490.atlg4.stib.jdbc;
 import g54490.atlg4.stib.dto.StationDto;
 import g54490.atlg4.stib.repository.Dao;
 import java.io.IOException;
+import java.lang.module.ResolutionException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +54,7 @@ public class StationDao implements Dao<Integer, StationDto> {
                 dtos.add(dto);
             }
         } catch (SQLException e) {
-           Logger.getLogger(StationDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(StationDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
         return dtos;
     }
@@ -72,7 +73,7 @@ public class StationDao implements Dao<Integer, StationDto> {
             while (result.next()) {
                 dto = new StationDto(result.getInt(1), result.getString(2));
             }
-           
+
         } catch (SQLException e) {
             Logger.getLogger(StationDao.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -99,5 +100,29 @@ public class StationDao implements Dao<Integer, StationDto> {
         private static StationDao getInstance() throws IOException {
             return new StationDao();
         }
+    }
+
+    public StationDto selectGetName(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("error ");
+        }
+        String sql = "SELECT id,name FROM STATIONS WHERE name=?";
+        StationDto dto = null;
+        try {
+            PreparedStatement pstmt = connexion.prepareStatement(sql);
+            pstmt.setString(1, key);
+            ResultSet result = pstmt.executeQuery();
+            int count = 0;
+            while (result.next()) {
+                dto = new StationDto(result.getInt(1), result.getString(2));
+                count++;
+            }
+            if (count > 1) {
+                throw new ResolutionException("too many key " + key);
+            }
+        } catch (ResolutionException | SQLException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        return dto;
     }
 }

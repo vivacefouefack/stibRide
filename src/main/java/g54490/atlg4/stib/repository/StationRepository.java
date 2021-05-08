@@ -70,4 +70,8 @@ public class StationRepository implements Repository<Integer, StationDto> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public StationDto selectGetName(String key) {
+        return this.dao.selectGetName(key);
+    }
+
 }

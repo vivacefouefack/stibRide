@@ -2,6 +2,7 @@ package g54490.atlg4.stib.repository;
 
 import g54490.atlg4.stib.dto.StopDto;
 import g54490.atlg4.stib.jdbc.StopDao;
+import g54490.atlg4.stib.model.Edge;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,6 +32,23 @@ public class StopRepository implements Repository<Integer, StopDto> {
         return dao.selectAll();
     }
 
+    /**
+     * 
+     * @return 
+     */
+    public List<Edge> selectAllEdge() {
+        return this.dao.selectAllEdge();
+    }
+    
+    /**
+     * 
+     * @param key
+     * @return 
+     */
+    public String selectAllLineInSTation(String key){
+        return this.dao.selectAllLineInSTation(key);
+    }
+    
     @Override
     public Integer add(StopDto item) {
         throw new UnsupportedOperationException("Not supported yet.");

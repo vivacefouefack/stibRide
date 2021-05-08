@@ -7,7 +7,7 @@ package g54490.atlg4.stib.model;
 public class ResultData {
 
     private String nameStation;
-    private String line;
+    private String lines;
 
     /**
      * constructor of resultData.
@@ -17,7 +17,7 @@ public class ResultData {
      */
     public ResultData(String station, String line) {
         this.nameStation = station;
-        this.line = line;
+        this.lines = line;
     }
 
     /**
@@ -34,8 +34,8 @@ public class ResultData {
      *
      * @return line set of lines that pass through a station.
      */
-    public String getLine() {
-        return line;
+    public String getLines() {
+        return lines;
     }
 
 }

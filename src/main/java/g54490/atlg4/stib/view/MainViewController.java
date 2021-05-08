@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 /**
@@ -21,21 +22,13 @@ import org.controlsfx.control.SearchableComboBox;
  */
 public class MainViewController implements Initializable {
 
-    @FXML
-    private SearchableComboBox<String> destination;
-    @FXML
-    private SearchableComboBox<String> origine;
-    @FXML
-    private ImageView image1;
-    @FXML
-    private AnchorPane parent;
-    @FXML
-    private Button search;
-    @FXML
-    private Label erreur;
-
-    @FXML
-    void launchFavoritePage(ActionEvent event) {
+    @FXML private SearchableComboBox<String> destination;
+    @FXML private SearchableComboBox<String> origine;
+    @FXML private ImageView image1;
+    @FXML private AnchorPane parent;
+    @FXML private Button search;
+    @FXML private Label erreur;
+    @FXML void launchFavoritePage(ActionEvent event) {
 
     }
 
@@ -45,11 +38,22 @@ public class MainViewController implements Initializable {
      *
      * @param event ActionEvent;
      */
-    @FXML
-    private void search(ActionEvent event) {
-        this.erreur.setText("");
-        if (origine.getValue() == null || destination.getValue() == null) {
-            this.erreur.setText("? erreur veuillez selectionner l'origine et la destination");
+    @FXML private void search(ActionEvent event) {
+        try {
+            this.erreur.setText("");
+            if (origine.getValue() == null || destination.getValue() == null) {
+                this.erreur.setText("? erreur veuillez selectionner l'origine et la destination");
+            } else {
+                ResultView result = new ResultView();
+                ResultViewController mainController = result.fxmlLoader.getController();
+                mainController.AddResultData(origine.getValue(), destination.getValue());
+                mainController.closeStage(search);
+                result.start(new Stage());
+                this.search.setDisable(true);
+            }
+
+        } catch (Exception e) {
+            System.out.println("erreur" + e.getMessage());
         }
     }
 
@@ -59,7 +63,6 @@ public class MainViewController implements Initializable {
      * constructor of mainViewController.
      */
     public MainViewController() {
-
         this.destination = new SearchableComboBox<String>();
         this.origine = new SearchableComboBox<String>();
         this.erreur = new Label();
