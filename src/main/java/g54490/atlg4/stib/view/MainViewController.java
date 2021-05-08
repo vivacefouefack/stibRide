@@ -49,6 +49,7 @@ public class MainViewController implements Initializable {
                 mainController.AddResultData(origine.getValue(), destination.getValue());
                 mainController.closeStage(search);
                 result.start(new Stage());
+                mainController.closeStage(search);
                 this.search.setDisable(true);
             }
 
@@ -77,6 +78,14 @@ public class MainViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * getter.
+     * @return a button.
+     */
+    public Button getSearch() {
+        return search;
     }
 
 }

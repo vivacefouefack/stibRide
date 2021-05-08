@@ -67,6 +67,7 @@ public class ResultViewController implements Initializable{
         this.destination = "";
         this.smsErreur = new Label();
         this.smsConfirm = new Label();
+        
     }
 
     @Override

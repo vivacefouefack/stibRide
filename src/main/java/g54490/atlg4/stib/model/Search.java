@@ -1,7 +1,6 @@
 package g54490.atlg4.stib.model;
 
 import g54490.atlg4.stib.dto.StationDto;
-import g54490.atlg4.stib.jdbc.StationDao;
 import g54490.atlg4.stib.repository.StationRepository;
 import g54490.atlg4.stib.repository.StopRepository;
 import java.io.IOException;
@@ -53,12 +52,11 @@ public class Search {
             StopRepository stop = new StopRepository();
             List<Edge> edges = stop.selectAllEdge();
             Graphe graph = new Graphe(station.getAll(), edges);
-            DijkstraAlgorithm algo = new DijkstraAlgorithm(graph);
-
+            DijkstraAlgorithm search = new DijkstraAlgorithm(graph);
             StationDto origin = station.selectGetName(this.origin);
-            algo.execute(origin);
+            search.execute(origin);
             StationDto destination = station.selectGetName(this.destination);
-            List<StationDto> allResultStation = algo.getPath(destination);
+            List<StationDto> allResultStation = search.getPath(destination);
 
             for (StationDto list : allResultStation) {
                 this.nbtation++;
@@ -69,17 +67,4 @@ public class Search {
         }
         return resultData;
     }
-
-    public static void main(String[] args) {
-        Search top = new Search("PARC", "HANKAR");
-        List<ResultData> resultData = top.getResultData();
-
-        for (ResultData list : resultData) {
-            System.out.println(list.getNameStation() + "**********" + list.getLines());
-        }
-
-        System.out.println("nombre de d'arret totale :" + top.getNbtation());
-
-    }
-
 }
