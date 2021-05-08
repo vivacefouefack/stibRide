@@ -1,7 +1,9 @@
 package g54490.atlg4.stib.view;
 
+import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.model.ResultData;
 import g54490.atlg4.stib.model.Search;
+import g54490.atlg4.stib.repository.FavoriteRepository;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -41,13 +43,16 @@ public class ResultViewController implements Initializable{
         stage.close();
     }
 
-    @FXML void actionAddFavorites(ActionEvent event) {
+    @FXML void actionAddFavorites(ActionEvent event) throws IOException {
         this.smsErreur.setText("");
         this.smsConfirm.setText("");
-        if (this.favoryName.getText() == "") {
+        System.out.println(this.favoryName.getText().length());
+        if (this.favoryName.getText().length()==0) {
             this.smsErreur.setText("Veuillez fournir le nom du favori");
         } else {
+            FavoriteRepository favorites=new FavoriteRepository();
             this.smsConfirm.setText("le favori " + this.favoryName.getText() + " a été ajouté aux favoris");
+            favorites.add(new FavoritesDto(this.favoryName.getText(), origin, destination));
         }
     }
     
@@ -69,15 +74,13 @@ public class ResultViewController implements Initializable{
         this.origin = "";
         this.destination = "";
         this.smsErreur = new Label();
-        this.smsConfirm = new Label();
-        
+        this.smsConfirm = new Label(); 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tStation.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         tLine.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
-
     }
 
     public void AddResultData(String origin, String destination) {
