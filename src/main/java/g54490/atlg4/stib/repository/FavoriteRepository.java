@@ -57,6 +57,14 @@ public class FavoriteRepository implements Repository<String, FavoritesDto>{
         }
         return favoriteName;
     }
+    
+    /**
+     * 
+     * @param item 
+     */
+    public void update(FavoritesDto item) {
+        this.dao.update(item);
+    }
 
     
     

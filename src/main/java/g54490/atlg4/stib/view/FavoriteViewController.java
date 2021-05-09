@@ -64,29 +64,40 @@ public class FavoriteViewController implements Initializable {
     private SearchableComboBox<String> nouvelleDes;
 
     @FXML
+    private Label confirmModification;
+
+    @FXML
     private Button ok;
 
     @FXML
     void actionOk(ActionEvent event) {
 
-        disableButtons(true);
+        if (nouveauNom==null || nouvelleOri==null|| nouvelleDes==null) {
+            this.confirmModification.setText("veuillez introduire un nom,selectionner une origine et une destination");
+        } else {
+            myfavorites.update(new FavoritesDto(nouveauNom.getText(), nouvelleOri.getValue(), nouvelleDes.getValue()));
+            this.confirmModification.setText("le favori a été mise à jour ");
+            disableButtons(true);
+        }
     }
 
     @FXML
     void actionConsulter(ActionEvent event) throws IOException {
         this.erreurSelection.setText("");
+        this.confirmModification.setText("");
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
         } else {
             FavoritesDto dto = myfavorites.get(searchFavaris.getValue());
             this.AddResultData(dto.getOrigin(), dto.getDestination());
         }
-
+        disableButtons(true);
     }
 
     @FXML
     void actionModifier(ActionEvent event) {
         this.erreurSelection.setText("");
+        this.confirmModification.setText("");
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
         } else {
@@ -105,6 +116,7 @@ public class FavoriteViewController implements Initializable {
     @FXML
     void actionSupprimer(ActionEvent event) {
         this.erreurSelection.setText("");
+        this.confirmModification.setText("");
         if (searchFavaris.getValue() == null) {
             this.erreurSelection.setText("? erreur veuillez selectionner un favori");
         } else {
@@ -121,6 +133,7 @@ public class FavoriteViewController implements Initializable {
                 this.confirmSuppressio.setText("Opération annulée");
             }
         }
+        disableButtons(true);
     }
 
     private Button search;
@@ -140,7 +153,7 @@ public class FavoriteViewController implements Initializable {
         this.nouveauNom = new TextField();
         this.nouvelleOri = new SearchableComboBox<>();
         this.nouvelleDes = new SearchableComboBox<>();
-
+        this.confirmModification = new Label();
     }
 
     public void AddResultData(String origin, String destination) {
@@ -160,7 +173,7 @@ public class FavoriteViewController implements Initializable {
         this.stations.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         this.lignes.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
         try {
-            StationRepository stations=new StationRepository();
+            StationRepository stations = new StationRepository();
             this.searchFavaris.setItems(myfavorites.getFavoritesName());
             this.nouvelleOri.setItems(stations.getStationName());
             this.nouvelleDes.setItems(stations.getStationName());

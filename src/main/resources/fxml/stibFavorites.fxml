@@ -88,5 +88,10 @@
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
+      <Label fx:id="confirmModification" layoutX="72.0" layoutY="479.0" prefHeight="18.0" prefWidth="246.0" textFill="#ca0101">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
