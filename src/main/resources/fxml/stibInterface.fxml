@@ -23,7 +23,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Favorites">
             <items>
-              <MenuItem fx:id="itemMesfavoris" mnemonicParsing="false" onAction="#launchFavoritePage" text="mes favoris" />
+              <MenuItem fx:id="itemMesfavoris" mnemonicParsing="false" text="mes favoris" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -59,7 +59,7 @@
       </Label>
       <SearchableComboBox fx:id="origine" layoutX="464.0" layoutY="393.0" prefHeight="26.0" prefWidth="234.0" />
       <SearchableComboBox fx:id="destination" layoutX="464.0" layoutY="458.0" prefHeight="26.0" prefWidth="234.0" />
-      <Button fx:id="search" layoutX="535.0" layoutY="520.0" mnemonicParsing="false" onAction="#search" prefHeight="36.0" prefWidth="92.0" text="Search">
+      <Button fx:id="search" layoutX="535.0" layoutY="520.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="92.0" text="Search">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

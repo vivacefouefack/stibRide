@@ -24,7 +24,7 @@
           <TableColumn fx:id="lignes" prefWidth="236.0" text="Lignes" />
         </columns>
       </TableView>
-      <Button fx:id="quitter" layoutX="795.0" layoutY="508.0" mnemonicParsing="false" onAction="#actionQuitter" text="Quitter">
+      <Button fx:id="quitter" layoutX="795.0" layoutY="508.0" mnemonicParsing="false" text="Quitter">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -50,7 +50,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="consulter" layoutX="63.0" layoutY="220.0" mnemonicParsing="false" onAction="#actionConsulter" text="Consulter">
+      <Button fx:id="consulter" layoutX="63.0" layoutY="220.0" mnemonicParsing="false"  text="Consulter">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

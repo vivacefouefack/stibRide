@@ -1,5 +1,6 @@
 package g54490.atlg4.stib.view;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,11 +14,21 @@ import javafx.stage.Stage;
  */
 public class MainView extends Application{
     
+    private Parent root;
+    final FXMLLoader fxmlLoader;
+
+    public  MainView() throws IOException {
+        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/stibInterface.fxml"));
+        this.root=fxmlLoader.load();
+    }
+
+    public FXMLLoader getFxmlLoader() {
+        return fxmlLoader;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        
-        Parent root=FXMLLoader.load(getClass().getResource("/fxml/stibInterface.fxml"));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(this.root);
         
         stage.getIcons().add(new Image("/icons/logo.png"));
         stage.setTitle("Stib Ride");
@@ -25,4 +36,5 @@ public class MainView extends Application{
         stage.setResizable(false);
         stage.show();
     }
+   
 }

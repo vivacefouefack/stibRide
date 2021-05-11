@@ -141,20 +141,9 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
             pstmt.setString(1, key);
             ResultSet result = pstmt.executeQuery();
             dto = new FavoritesDto(result.getString(1), result.getString(2), result.getString(3));
-
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
         return dto;
     }
-
-    public static void main(String[] args) throws IOException {
-        FavoriteDao f = new FavoriteDao();
-        f.delete("travail-sport");
-        System.out.println(f.select("test").getOrigin());
-
-        // String r=f.insert(new FavoritesDto("maison-tra", "HANKAR","PARC"));
-        // System.out.println("nom du favori : "+r);
-    }
-
 }

@@ -1,8 +1,10 @@
 package g54490.atlg4.stib.view;
 
 import g54490.atlg4.stib.dto.FavoritesDto;
+import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.model.ResultData;
 import g54490.atlg4.stib.model.Search;
+import g54490.atlg4.stib.presenter.Presenter;
 import g54490.atlg4.stib.repository.FavoriteRepository;
 import g54490.atlg4.stib.repository.StationRepository;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -58,6 +61,9 @@ public class FavoriteViewController implements Initializable {
     private TextField nouveauNom;
 
     @FXML
+    private Button Addfavorites;
+    
+    @FXML
     private SearchableComboBox<String> nouvelleOri;
 
     @FXML
@@ -71,47 +77,45 @@ public class FavoriteViewController implements Initializable {
 
     @FXML
     void actionOk(ActionEvent event) {
-
-        if (nouveauNom==null || nouvelleOri==null|| nouvelleDes==null) {
-            this.confirmModification.setText("veuillez introduire un nom,selectionner une origine et une destination");
-        } else {
-            myfavorites.update(new FavoritesDto(nouveauNom.getText(), nouvelleOri.getValue(), nouvelleDes.getValue()));
-            this.confirmModification.setText("le favori a été mise à jour ");
-            disableButtons(true);
-        }
+//
+//        if (nouveauNom == null || nouvelleOri == null || nouvelleDes == null) {
+//            this.confirmModification.setText("veuillez introduire un nom,selectionner une origine et une destination");
+//        } else {
+//            myfavorites.update(new FavoritesDto(nouveauNom.getText(), nouvelleOri.getValue(), nouvelleDes.getValue()));
+//            this.confirmModification.setText("le favori a été mise à jour ");
+//            disableButtons(true);
+//        }
     }
 
-    @FXML
-    void actionConsulter(ActionEvent event) throws IOException {
-        this.erreurSelection.setText("");
-        this.confirmModification.setText("");
-        if (searchFavaris.getValue() == null) {
-            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-        } else {
-            FavoritesDto dto = myfavorites.get(searchFavaris.getValue());
-            this.AddResultData(dto.getOrigin(), dto.getDestination());
-        }
-        disableButtons(true);
-    }
+//    @FXML
+//    void actionConsulter(ActionEvent event) throws IOException {
+//        this.erreurSelection.setText("");
+//        this.confirmModification.setText("");
+//        if (searchFavaris.getValue() == null) {
+//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
+//        } else {
+//            FavoritesDto dto = myfavorites.get(searchFavaris.getValue());
+//           // this.AddResultData(dto.getOrigin(), dto.getDestination());
+//        }
+//        disableButtons(true);
+//    }
 
     @FXML
     void actionModifier(ActionEvent event) {
-        this.erreurSelection.setText("");
-        this.confirmModification.setText("");
-        if (searchFavaris.getValue() == null) {
-            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-        } else {
-            disableButtons(false);
-        }
+//        this.erreurSelection.setText("");
+//        this.confirmModification.setText("");
+//        if (searchFavaris.getValue() == null) {
+//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
+//        } else {
+//            disableButtons(false);
+//        }
     }
 
-    @FXML
-    void actionQuitter(ActionEvent event) {
-        Stage stage = (Stage) quitter.getScene().getWindow();
-        this.search.setDisable(false);
-        this.itemMesfavoris.setDisable(false);
-        stage.close();
-    }
+//    @FXML
+//    void actionQuitter(ActionEvent event) {
+//        Stage stage = (Stage) quitter.getScene().getWindow();
+//        stage.close();
+//    }
 
     @FXML
     void actionSupprimer(ActionEvent event) {
@@ -136,7 +140,6 @@ public class FavoriteViewController implements Initializable {
         disableButtons(true);
     }
 
-    private Button search;
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
 
@@ -156,16 +159,15 @@ public class FavoriteViewController implements Initializable {
         this.confirmModification = new Label();
     }
 
-    public void AddResultData(String origin, String destination) {
+    public void AddResultData(List<ResultData> data ) {
         if (this.tableView != null) {
             this.tableView.getItems().clear();
         }
-        Search r = new Search(origin, destination);
-        List<ResultData> data = r.getResultData();
+        
         for (ResultData oneLine : data) {
             this.tableView.getItems().add(oneLine);
         }
-        this.nbStation.setText("Nomnbres de stations : " + r.getNbtation());
+        //this.nbStation.setText("Nomnbres de stations : " + r.getNbtation());
     }
 
     @Override
@@ -182,11 +184,7 @@ public class FavoriteViewController implements Initializable {
         }
         disableButtons(true);
     }
-
-    public void disableButton(Button button, MenuItem item) {
-        this.search = button;
-        this.itemMesfavoris = item;
-    }
+    
 
     public void disableButtons(Boolean disable) {
         if (disable) {
@@ -202,5 +200,44 @@ public class FavoriteViewController implements Initializable {
         }
 
     }
+
+    public void initialize(ObservableList<String> itemsFavorite,ObservableList<String> items) {
+        this.searchFavaris.setItems(itemsFavorite);
+        this.nouvelleOri.setItems(items);
+        this.nouvelleDes.setItems(items);
+    }
+    
+    public void addHandlerButton(Presenter presenter) { 
+        Handler handler = new Handler(presenter);
+        quitter.setOnAction(handler);
+        //Addfavorites.setOnAction(handler);
+        
+    }
+
+    public Button getQuitter() {
+        return quitter;
+    }
+
+    public Label getErreurSelection() {
+        return erreurSelection;
+    }
+
+    public Label getConfirmSuppressio() {
+        return confirmSuppressio;
+    }
+
+    public Label getConfirmModification() {
+        return confirmModification;
+    }
+
+    public Button getOk() {
+        return ok;
+    }
+
+    public SearchableComboBox<String> getSearchFavaris() {
+        return searchFavaris;
+    }
+    
+    
 
 }

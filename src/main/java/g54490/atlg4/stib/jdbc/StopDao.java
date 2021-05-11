@@ -130,7 +130,7 @@ public class StopDao implements Dao<Integer, StopDto> {
      * @param key
      * @return 
      */
-    public String selectAllLineInSTation(String key){
+     public String selectAllLineInSTation(String key){
         if (key == null) {
             throw new IllegalArgumentException("error ");
         }

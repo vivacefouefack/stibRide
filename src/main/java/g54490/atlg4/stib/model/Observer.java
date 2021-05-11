@@ -1,13 +1,20 @@
 package g54490.atlg4.stib.model;
 
 /**
+ * A class can implement the {@code Observer} interface when it wants to be
+ * informed of changes in observable objects.
  *
- * @author g54490@etu.he2b.be
+ * @author 54490@etu.he2b.be
  */
 public interface Observer {
-    
+
     /**
-     * allows the update according to the modifications of the observable.
+     * This method is called whenever the observed object is changed. An
+     * application calls an {@code Observable} object's {@code notifyObservers}
+     * method to have all the object's observers notified of the change.
+     *
+     * @param observable the observable object.
+     * @param arg an argument passed to the {@code notifyObservers} method.
      */
-    public void update(Object arg);//Observable observable
+    void update(Observable observable, Object arg);
 }
