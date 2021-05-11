@@ -32,18 +32,21 @@ public class StopRepository implements Repository<Integer, StopDto> {
         return dao.selectAll();
     }
 
+   
     /**
-     * 
-     * @return 
+     * allows to build the edges in the network of the stib.
+     *
+     * @return all edges of the stib network.
      */
     public List<Edge> selectAllEdge() {
         return this.dao.selectAllEdge();
     }
     
     /**
-     * 
-     * @param key
-     * @return 
+     * allows you to select all the metro lines passing through a station.
+     *
+     * @param key station key.
+     * @return a string representing the line passing by this station.
      */
     public String selectAllLineInSTation(String key){
         return this.dao.selectAllLineInSTation(key);

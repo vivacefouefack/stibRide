@@ -70,6 +70,13 @@ public class StationRepository implements Repository<Integer, StationDto> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * searches for a station in the database through the name of the station
+     * received in parameter.
+     *
+     * @param key name of station.
+     * @return the object station whose name is key.
+     */
     public StationDto selectGetName(String key) {
         return this.dao.selectGetName(key);
     }

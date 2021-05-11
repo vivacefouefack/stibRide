@@ -29,6 +29,14 @@ public class Presenter implements Observer {
     private ResultView resultView;
     private FavoriteView favoriteView;
 
+    /**
+     * constructor of presenter.
+     *
+     * @param model will do all the necessary calculations.
+     * @param Mainview is a view of the presenter/
+     * @param resultView is a view of the presenter.
+     * @param favoriteView is a view of the presenter.
+     */
     public Presenter(Model model, MainView Mainview, ResultView resultView, FavoriteView favoriteView) {
         this.Mainview = Mainview;
         this.resultView = resultView;
@@ -39,12 +47,20 @@ public class Presenter implements Observer {
         this.favoriteControl = favoriteView.getFxmlLoader().getController();
     }
 
+    /**
+     * initializes the presenter.
+     *
+     * @throws IOException if the connection to the database fails.
+     */
     public void initialize() throws IOException {
         model.initialize();
         mainControl.initialize(model.getSearchData());
         favoriteControl.initialize(model.getSearchFavoryData(), model.getSearchData());
     }
 
+    /**
+     *
+     */
     public void doSomething() {
 
         if (true) {
@@ -102,7 +118,7 @@ public class Presenter implements Observer {
     @Override
     public void update(Observable observable, Object arg) {
         try {
-            
+
             if (false) {
                 resultControl.AddResultData(((Model) observable).getDatas());
                 resultView.start(new Stage());

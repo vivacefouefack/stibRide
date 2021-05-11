@@ -11,21 +11,26 @@ import javafx.collections.ObservableList;
  *
  * @author 54490@etu.he2b.be
  */
-public class FavoriteRepository implements Repository<String, FavoritesDto>{
+public class FavoriteRepository implements Repository<String, FavoritesDto> {
+
     private FavoriteDao dao;
-    
-    
-    public  FavoriteRepository () throws IOException {
+
+    /**
+     * constructor.
+     *
+     * @throws IOException if the connection attempt fails.
+     */
+    public FavoriteRepository() throws IOException {
         dao = FavoriteDao.getInstance();
     }
 
-    FavoriteRepository (FavoriteDao dao) {
+    FavoriteRepository(FavoriteDao dao) {
         this.dao = dao;
     }
-    
+
     @Override
     public String add(FavoritesDto item) {
-       return dao.insert(item);
+        return dao.insert(item);
     }
 
     @Override
@@ -45,9 +50,15 @@ public class FavoriteRepository implements Repository<String, FavoritesDto>{
 
     @Override
     public boolean contains(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+    /**
+     * will search the database for the list of all stations.
+     *
+     * @return the list of all station names.
+     * @throws IOException if the connection attempt fails.
+     */
     public ObservableList<String> getFavoritesName() throws IOException {
         ObservableList<String> favoriteName = FXCollections.observableArrayList();
         List<FavoritesDto> stations;
@@ -57,15 +68,13 @@ public class FavoriteRepository implements Repository<String, FavoritesDto>{
         }
         return favoriteName;
     }
-    
+
     /**
-     * 
-     * @param item 
+     *
+     * @param item
      */
     public void update(FavoritesDto item) {
         this.dao.update(item);
     }
 
-    
-    
 }
