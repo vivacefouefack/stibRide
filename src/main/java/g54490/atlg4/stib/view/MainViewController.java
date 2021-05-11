@@ -2,7 +2,6 @@ package g54490.atlg4.stib.view;
 
 import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.presenter.Presenter;
-import java.io.IOException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -96,7 +95,11 @@ public class MainViewController {//implements Initializable{
 //            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-    
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
     public void addHandlerButton(Presenter presenter) {
         Handler handler = new Handler(presenter);
         search.setOnAction(handler);
@@ -113,28 +116,60 @@ public class MainViewController {//implements Initializable{
         this.itemMesfavoris = new MenuItem();
     }
 
-    public void initialize(ObservableList<String> items) throws IOException {
-        this.origine.setItems(items);
-        this.destination.setItems(items);
+    /**
+     * allows you to initialize the list of stations in the search area.
+     *
+     * @param allNameStations list of all station name.
+     */
+    public void initialize(ObservableList<String> allNameStations) {
+        this.origine.setItems(allNameStations);
+        this.destination.setItems(allNameStations);
     }
 
+    /**
+     * allows to deactivate the buttons when the model performs the calculation
+     * and to reactivate them at the end of the calculation according to the
+     * boolean received
+     *
+     * @param answer allows you to know if you deactivate or not.
+     */
     public void disable(boolean answer) {
         this.search.setDisable(answer);
         this.itemMesfavoris.setDisable(answer);
     }
 
+    /**
+     * getter.
+     *
+     * @return the choice of the user's destination station.
+     */
     public SearchableComboBox<String> getDestination() {
         return destination;
     }
 
+    /**
+     * getter.
+     *
+     * @return the choice of the user's origin station
+     */
     public SearchableComboBox<String> getOrigine() {
         return origine;
     }
 
+    /**
+     * getter.
+     *
+     * @return error label.
+     */
     public Label getErreur() {
         return erreur;
     }
 
+    /**
+     * getter.
+     *
+     * @return itemMesfavoris menuItem.
+     */
     public MenuItem getItemMesfavoris() {
         return itemMesfavoris;
     }

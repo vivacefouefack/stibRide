@@ -12,15 +12,27 @@ import javafx.stage.Stage;
  *
  * @author 54490@etu.he2b.be
  */
-public class ResultView extends Application{
+public class ResultView extends Application {
+
     private Parent root;
     final FXMLLoader fxmlLoader;
 
+    /**
+     * constructor.
+     *
+     * @throws IOException if the resource is not found.
+     */
     public ResultView() throws IOException {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/resultSearch.fxml"));
-        this.root=fxmlLoader.load();
+        this.root = fxmlLoader.load();
     }
 
+    /**
+     * getter.
+     *
+     * @return FXMLLoader so that we can have access to the interface
+     * controller.
+     */
     public FXMLLoader getFxmlLoader() {
         return fxmlLoader;
     }
@@ -28,13 +40,12 @@ public class ResultView extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         Scene scene = new Scene(this.root);
-        
+
         stage.getIcons().add(new Image("/icons/logo.png"));
         stage.setTitle("Result");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
-    
-    
+
 }

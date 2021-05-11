@@ -17,15 +17,19 @@ public class FavoriteView extends Application {
     private Parent root;
     private FXMLLoader fxmlLoader;
 
+    /**
+     * constructor.
+     * @throws IOException if the resource is not found.
+     */
     public FavoriteView() throws IOException {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/stibFavorites.fxml"));
         this.root=fxmlLoader.load();
     }
 
-    public Parent getRoot() {
-        return root;
-    }
-
+    /**
+     * getter.
+     * @return FXMLLoader so that we can have access to the interface controller.
+     */
     public FXMLLoader getFxmlLoader() {
         return fxmlLoader;
     }

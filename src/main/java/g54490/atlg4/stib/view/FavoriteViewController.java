@@ -1,19 +1,14 @@
 package g54490.atlg4.stib.view;
 
-import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.model.ResultData;
-import g54490.atlg4.stib.model.Search;
 import g54490.atlg4.stib.presenter.Presenter;
 import g54490.atlg4.stib.repository.FavoriteRepository;
-import g54490.atlg4.stib.repository.StationRepository;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +24,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
 /**
@@ -56,25 +50,18 @@ public class FavoriteViewController implements Initializable {
     private Label erreurSelection;
     @FXML
     private Label confirmSuppressio;
-
     @FXML
     private TextField nouveauNom;
-
     @FXML
     private Button Addfavorites;
-    
     @FXML
     private SearchableComboBox<String> nouvelleOri;
-
     @FXML
     private SearchableComboBox<String> nouvelleDes;
-
     @FXML
     private Label confirmModification;
-
     @FXML
     private Button ok;
-
     @FXML
     void actionOk(ActionEvent event) {
 //
@@ -99,7 +86,6 @@ public class FavoriteViewController implements Initializable {
 //        }
 //        disableButtons(true);
 //    }
-
     @FXML
     void actionModifier(ActionEvent event) {
 //        this.erreurSelection.setText("");
@@ -116,7 +102,6 @@ public class FavoriteViewController implements Initializable {
 //        Stage stage = (Stage) quitter.getScene().getWindow();
 //        stage.close();
 //    }
-
     @FXML
     void actionSupprimer(ActionEvent event) {
         this.erreurSelection.setText("");
@@ -137,12 +122,16 @@ public class FavoriteViewController implements Initializable {
                 this.confirmSuppressio.setText("Opération annulée");
             }
         }
-        disableButtons(true);
     }
 
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
 
+    /**
+     * constructor of FavoriteViewController.
+     *
+     * @throws IOException if the myfavorites does not access the database
+     */
     public FavoriteViewController() throws IOException {
         this.tableView = new TableView<>();
         this.stations = new TableColumn<>();
@@ -159,11 +148,15 @@ public class FavoriteViewController implements Initializable {
         this.confirmModification = new Label();
     }
 
-    public void AddResultData(List<ResultData> data ) {
+    /**
+     * 
+     * @param data 
+     */
+    public void AddResultData(List<ResultData> data) {
         if (this.tableView != null) {
             this.tableView.getItems().clear();
         }
-        
+
         for (ResultData oneLine : data) {
             this.tableView.getItems().add(oneLine);
         }
@@ -174,70 +167,90 @@ public class FavoriteViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.stations.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         this.lignes.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
-        try {
-            StationRepository stations = new StationRepository();
-            this.searchFavaris.setItems(myfavorites.getFavoritesName());
-            this.nouvelleOri.setItems(stations.getStationName());
-            this.nouvelleDes.setItems(stations.getStationName());
-        } catch (IOException ex) {
-            Logger.getLogger(FavoriteViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        disableButtons(true);
-    }
-    
-
-    public void disableButtons(Boolean disable) {
-        if (disable) {
-            this.ok.setDisable(disable);
-            this.nouveauNom.setDisable(disable);
-            this.nouvelleOri.setDisable(disable);
-            this.nouvelleDes.setDisable(disable);
-        } else {
-            this.ok.setDisable(disable);
-            this.nouveauNom.setDisable(disable);
-            this.nouvelleOri.setDisable(disable);
-            this.nouvelleDes.setDisable(disable);
-        }
-
+//        try {
+//            StationRepository stations = new StationRepository();
+//            this.searchFavaris.setItems(myfavorites.getFavoritesName());
+//            this.nouvelleOri.setItems(stations.getStationName());
+//            this.nouvelleDes.setItems(stations.getStationName());
+//        } catch (IOException ex) {
+//            Logger.getLogger(FavoriteViewController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        disableButtons(true);
     }
 
-    public void initialize(ObservableList<String> itemsFavorite,ObservableList<String> items) {
+    /**
+     * initializes the list of all favorites and the list of all station names.
+     * @param itemsFavorite all name favorites list
+     * @param items all name station list.
+     */
+    public void initialize(ObservableList<String> itemsFavorite, ObservableList<String> items) {
         this.searchFavaris.setItems(itemsFavorite);
         this.nouvelleOri.setItems(items);
         this.nouvelleDes.setItems(items);
     }
-    
-    public void addHandlerButton(Presenter presenter) { 
+
+    /** 
+     * allows you to add a button to the event manager.
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButton(Presenter presenter) {
         Handler handler = new Handler(presenter);
         quitter.setOnAction(handler);
         //Addfavorites.setOnAction(handler);
-        
     }
 
+    /**
+     * getter.
+     *
+     * @return quitter button.
+     */
     public Button getQuitter() {
         return quitter;
     }
 
+    /**
+     * getter.
+     *
+     * @return erreurSelection label.
+     */
     public Label getErreurSelection() {
         return erreurSelection;
     }
 
+    /**
+     * getter.
+     *
+     * @return confirmSuppressio label.
+     */
     public Label getConfirmSuppressio() {
         return confirmSuppressio;
     }
 
+    /**
+     * getter.
+     *
+     * @return confirmModification label.
+     */
     public Label getConfirmModification() {
         return confirmModification;
     }
 
+    /**
+     * getter.
+     *
+     * @return ok button.
+     */
     public Button getOk() {
         return ok;
     }
 
+    /**
+     * getter.
+     *
+     * @return searchFavaris.
+     */
     public SearchableComboBox<String> getSearchFavaris() {
         return searchFavaris;
     }
-    
-    
 
 }

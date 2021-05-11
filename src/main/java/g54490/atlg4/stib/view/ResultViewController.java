@@ -1,16 +1,11 @@
 package g54490.atlg4.stib.view;
 
-import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.model.ResultData;
-import g54490.atlg4.stib.model.Search;
 import g54490.atlg4.stib.presenter.Presenter;
-import g54490.atlg4.stib.repository.FavoriteRepository;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,17 +20,26 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author 54490@etu.he2b.be
  */
-public class ResultViewController implements Initializable{
+public class ResultViewController implements Initializable {
 
-    @FXML private TableView<ResultData> tableView;
-    @FXML private TableColumn<ResultData, String> tStation;
-    @FXML private TableColumn<ResultData, String> tLine;
-    @FXML private Button Addfavory;
-    @FXML private TextField favoryName;
-    @FXML private Label nbStations;
-    @FXML private Label smsErreur;
-    @FXML private Label smsConfirm;
-    @FXML private Button quitter;
+    @FXML
+    private TableView<ResultData> tableView;
+    @FXML
+    private TableColumn<ResultData, String> tStation;
+    @FXML
+    private TableColumn<ResultData, String> tLine;
+    @FXML
+    private Button Addfavory;
+    @FXML
+    private TextField favoryName;
+    @FXML
+    private Label nbStations;
+    @FXML
+    private Label smsErreur;
+    @FXML
+    private Label smsConfirm;
+    @FXML
+    private Button quitter;
 
 //    @FXML void actionQuitter(ActionEvent event) {
 //        Stage stage = (Stage) quitter.getScene().getWindow();
@@ -43,7 +47,6 @@ public class ResultViewController implements Initializable{
 //        this.itemMesfavoris.setDisable(false);
 //        stage.close();
 //    }
-
 //    @FXML void actionAddFavorites(ActionEvent event) throws IOException {
 //        this.smsErreur.setText("");
 //        this.smsConfirm.setText("");
@@ -70,7 +73,6 @@ public class ResultViewController implements Initializable{
 //        }
 //        this.nbStations.setText("Nomnbres de stations : " + search.getNbtation());
 //    }
-
     private String origin;
     private String destination;
     private Button search;
@@ -78,9 +80,8 @@ public class ResultViewController implements Initializable{
 
     /**
      * constructor of mainViewResultControl.
-     * @throws IOException 
      */
-    public ResultViewController() throws IOException {
+    public ResultViewController() {
         this.tStation = new TableColumn<>("");
         this.tLine = new TableColumn<>("");
         this.tableView = new TableView<>();
@@ -89,7 +90,7 @@ public class ResultViewController implements Initializable{
         this.origin = "";
         this.destination = "";
         this.smsErreur = new Label();
-        this.smsConfirm = new Label(); 
+        this.smsConfirm = new Label();
     }
 
     @Override
@@ -97,44 +98,68 @@ public class ResultViewController implements Initializable{
         tStation.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         tLine.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
     }
-    
-    public void addHandlerButton(Presenter presenter) { 
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButton(Presenter presenter) {
         Handler handler = new Handler(presenter);
         quitter.setOnAction(handler);
         //Addfavory.setOnAction(handler);
-        
+
     }
 
-    public void disableButton(Button button,MenuItem item) {
-        this.search = button;
-        this.itemMesfavoris=item;
-    }
-    
-    public void AddResultData(List<ResultData> datas){
-        int count=0;
+    /**
+     * allows you to add data to the results table.
+     * @param datas data list to display.
+     */
+    public void AddResultData(List<ResultData> datas) {
+        int count = 0;
         for (ResultData oneLine : datas) {
             this.tableView.getItems().add(oneLine);
             count++;
         }
-        this.nbStations.setText("Nomnbres de stations : " +count);
+        this.nbStations.setText("Nomnbres de stations : " + count);
     }
 
+    /**
+     * getter.
+     * @return quitter button.
+     */
     public Button getQuitter() {
         return quitter;
     }
 
+    /**
+     * getter.
+     * @return Addfavory button.
+     */
     public Button getAddfavory() {
         return Addfavory;
     }
 
+    /**
+     * getter.
+     * @return favoryName textfield.
+     */
     public TextField getFavoryName() {
         return favoryName;
     }
 
+    /**
+     * getter.
+     * @return smsErreur label.
+     */
     public Label getSmsErreur() {
         return smsErreur;
     }
 
+    /**
+     * getter.
+     * @return smsConfirm label.
+     */
     public Label getSmsConfirm() {
         return smsConfirm;
     }
