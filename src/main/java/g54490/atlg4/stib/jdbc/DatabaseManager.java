@@ -20,6 +20,11 @@ public class DatabaseManager {
     private DatabaseManager() {
     }
 
+    /**
+     * allows you to connect to the database outside the application.
+     * @return the connection.
+     * @throws IOException if the connection fails.
+     */
     public Connection getConnection() throws IOException {
         ConfigManager.getInstance().load();
         String DBurl = "jdbc:sqlite:" + ConfigManager.getInstance().getProperties("db.url");
@@ -86,10 +91,17 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * allows you to obtain an instance of the database manager.
+     * @return an instance of the database manager.
+     */
     public static DatabaseManager getInstance() {
         return DBManagerHolder.INSTANCE;
     }
 
+    /**
+     * creates a private instance of the database manager for security reasons.
+     */
     private static class DBManagerHolder {
 
         private static final DatabaseManager INSTANCE = new DatabaseManager();

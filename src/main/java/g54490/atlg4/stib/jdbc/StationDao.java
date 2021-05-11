@@ -95,6 +95,9 @@ public class StationDao implements Dao<Integer, StationDto> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * creates an instance of the class.
+     */
     private static class StationDaoHolder {
 
         private static StationDao getInstance() throws IOException {
@@ -102,6 +105,13 @@ public class StationDao implements Dao<Integer, StationDto> {
         }
     }
 
+    /**
+     * searches for a station in the database through the name of the station
+     * received in parameter.
+     *
+     * @param key name of station.
+     * @return the object station whose name is key.
+     */
     public StationDto selectGetName(String key) {
         if (key == null) {
             throw new IllegalArgumentException("error ");

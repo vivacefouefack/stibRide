@@ -79,6 +79,9 @@ public class StopDao implements Dao<Integer, StopDto> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * creates an instance of the class.
+     */
     private static class StopDaoHolder {
 
         private static StopDao getInstance() throws IOException {
@@ -113,7 +116,6 @@ public class StopDao implements Dao<Integer, StopDto> {
             Statement stmt = connexion.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
-
                 String name = result.getString(5) + result.getString(10);
                 StationDto origin = new StationDto(result.getInt(2), result.getString(5));
                 StationDto destination = new StationDto(result.getInt(7), result.getString(10));
@@ -124,31 +126,31 @@ public class StopDao implements Dao<Integer, StopDto> {
         }
         return outDto;
     }
-    
+
     /**
-     * 
-     * @param key
-     * @return 
+     * allows you to select all the metro lines passing through a station.
+     *
+     * @param key station key.
+     * @return a string representing the line passing by this station.
      */
-     public String selectAllLineInSTation(String key){
+    public String selectAllLineInSTation(String key) {
         if (key == null) {
             throw new IllegalArgumentException("error ");
         }
-        String lines="[";
+        String lines = "[";
         String sql = "SELECT id_line FROM STOPS WHERE id_station=?";
         try {
             PreparedStatement pstmt = connexion.prepareStatement(sql);
             pstmt.setString(1, key);
             ResultSet result = pstmt.executeQuery();
             while (result.next()) {
-                lines+=result.getString(1)+" ";
+                lines += result.getString(1) + " ";
             }
-            lines+="]";
+            lines += "]";
         } catch (ResolutionException | SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
         return lines;
     }
-
 
 }

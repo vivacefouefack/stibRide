@@ -46,7 +46,6 @@ public class Presenter implements Observer {
     }
 
     public void doSomething() {
-        System.out.println("DEBUG | PRESENTER  | Reçoit une demande d'action");
 
         if (true) {
             //***bouton recherche
@@ -102,14 +101,9 @@ public class Presenter implements Observer {
 
     @Override
     public void update(Observable observable, Object arg) {
-        System.out.println("DEBUG | PRESENTER  | Mise à jour de l'observateur : le cercle est jaune");
-        System.out.println("DEBUG | PRESENTER  | Ordonne à la vue de se mettre à jour : le cercle est jaune");
-        //**mise à jour des données de resultview
-
         try {
             
-            
-            if (true) {
+            if (false) {
                 resultControl.AddResultData(((Model) observable).getDatas());
                 resultView.start(new Stage());
                 mainControl.disable(false);
@@ -123,9 +117,6 @@ public class Presenter implements Observer {
         } catch (Exception ex) {
             Logger.getLogger(Presenter.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        System.out.println("DEBUG | PRESENTER  | Mise à jour de l'observateur : l'entier vaut ");
-        System.out.println("DEBUG | PRESENTER  | Ordonne à la vue de se mettre à jour : l'entier vaut ");
     }
 
 }

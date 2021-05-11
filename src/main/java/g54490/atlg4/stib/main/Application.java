@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author vivac
+ * @author 54490@etu.he2b.be
  */
 public class Application extends javafx.application.Application {
     

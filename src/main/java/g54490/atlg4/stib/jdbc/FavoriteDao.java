@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * this class allows us to access data from the favorites table of the database.
  *
  * @author 54490@etu.he2b.be
  */
@@ -20,25 +21,27 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
     private Connection connexion;
 
     /**
-     *
-     * @throws IOException
+     * constructor of favoriteDao.
+     * @throws IOException if the connection to the database fails.
      */
     public FavoriteDao() throws IOException {
         connexion = DatabaseManager.getInstance().getConnection();
 
     }
 
+  
     /**
-     *
-     * @return @throws IOException
+     * allows to get an instance of the class for security reasons.
+     * @return the class instance;
+     * @throws IOException if he cannot access the database.
      */
     public static FavoriteDao getInstance() throws IOException {
         return FavoriteDaoHolder.getInstance();
     }
 
-    /**
-     *
-     */
+   /**
+    * creates a instance of the FavoriteDao for security reasons.
+    */
     private static class FavoriteDaoHolder {
 
         private static FavoriteDao getInstance() throws IOException {
@@ -46,11 +49,6 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         }
     }
 
-    /**
-     *
-     * @param item
-     * @return
-     */
     @Override
     public String insert(FavoritesDto item) {
         if (item == null) {
@@ -63,7 +61,6 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
             pstmt.setString(2, item.getOrigin());
             pstmt.setString(3, item.getDestination());
             pstmt.executeUpdate();
-
             ResultSet result = pstmt.getGeneratedKeys();
             while (result.next()) {
                 name = result.getString(2);
@@ -74,10 +71,6 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         return name;
     }
 
-    /**
-     *
-     * @param name
-     */
     @Override
     public void delete(String name) {
         if (name == null) {
@@ -92,10 +85,6 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         }
     }
 
-    /**
-     *
-     * @param item
-     */
     @Override
     public void update(FavoritesDto item) {
         if (item == null) {
@@ -112,10 +101,6 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public List<FavoritesDto> selectAll() {
         String query = "SELECT * FROM FAVORITES";

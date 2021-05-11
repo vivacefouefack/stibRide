@@ -74,6 +74,9 @@ public class LineDao implements Dao<Integer, LineDto> {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    /**
+     * creates an instance of the class.
+     */
     private static class LineDaoHolder {
 
         private static LineDao getInstance() throws IOException {
