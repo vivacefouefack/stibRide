@@ -7,18 +7,15 @@ import g54490.atlg4.stib.repository.StopRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
  *
- * @author vivac
+ * @author 54490@etu.he2b.be
  */
-public class Model  extends Observable {
+public class Model extends Observable {
 
-    private int data;
-    private Random r;
     private StationRepository stations;
     private StopRepository stops;
     private FavoriteRepository favorites;
@@ -26,80 +23,120 @@ public class Model  extends Observable {
     private ObservableList<String> searchData;
     private ObservableList<String> searchFavoryData;
     private List<ResultData> datas;
-    private FavoritesDto dto ;
-    private List<ResultData> dataFavoris ;
-    
+    private FavoritesDto dto;
+    private List<ResultData> dataFavoris;
 
+    /**
+     * constructor of model.
+     *
+     * @throws IOException if the connection to the database fails.
+     */
     public Model() throws IOException {
-        r = new Random();
         this.stations = new StationRepository();
-        this.stops=new StopRepository();
-        this.favorites=new FavoriteRepository();
-        this.searchData= FXCollections.observableArrayList();
-        this.searchFavoryData= FXCollections.observableArrayList();
-        this.datas=new ArrayList<>();
-        this.dataFavoris=new ArrayList<>();
+        this.stops = new StopRepository();
+        this.favorites = new FavoriteRepository();
+        this.searchData = FXCollections.observableArrayList();
+        this.searchFavoryData = FXCollections.observableArrayList();
+        this.datas = new ArrayList<>();
+        this.dataFavoris = new ArrayList<>();
     }
 
+    /**
+     * initializes the model.
+     *
+     * @throws IOException if the connection to the database fails.
+     */
     public void initialize() throws IOException {
-        this.searchData=stations.getStationName();
-        this.searchFavoryData=favorites.getFavoritesName();
+        this.searchData = stations.getStationName();
+        this.searchFavoryData = favorites.getFavoritesName();
     }
 
+    /**
+     * gettter.
+     *
+     * @return a list containing the name of all the stations.
+     */
     public ObservableList<String> getSearchData() {
         return searchData;
     }
 
+    /**
+     * getter.
+     *
+     * @return a list containing the name of all the favorites.
+     */
     public ObservableList<String> getSearchFavoryData() {
         return searchFavoryData;
     }
 
-    public void compute() {
-        System.out.println("DEBUG | MODEL      | Calcul commencé");
-
-        System.out.println("DEBUG | MODEL      | Calcul terminé");
-        notifyObservers();
-    }
-    
-    public void computePath(String origin,String destination){
-        this.search=new Search(origin, destination);
-        this.datas=search.getResultData();
-        notifyObservers();
-    }
-    
-    public void computeAddFavory(FavoritesDto item){
-        this.favorites.add(item);
-        notifyObservers();
-    }
-    
-    public void computeConsultFavory(String namestation) {
-        dto =favorites.get(namestation);
-        this.search=new Search(dto.getOrigin(), dto.getDestination());
-        this.dataFavoris=search.getResultData();
-        notifyObservers();
-    }
-
-    public int getData1() {
-        System.out.println("DEBUG | MODEL      | Demande des données");
-        return data;
-    }
-
+    /**
+     * getter.
+     *
+     * @return a list of data to be displayed in the results table.
+     */
     public List<ResultData> getDatas() {
         return datas;
     }
 
+    /**
+     * getter.
+     *
+     * @return a list of data to be displayed in the favorite results table.
+     */
     public List<ResultData> getDataFavoris() {
         return dataFavoris;
     }
-    
+
+    /**
+     *
+     */
+    public void compute() {
+        notifyObservers();
+    }
+
+    /**
+     * calculate the shortest path between the origin and the destination.
+     *
+     * @param origin departure station.
+     * @param destination destination station.
+     */
+    public void computePath(String origin, String destination) {
+        this.search = new Search(origin, destination);
+        this.datas = search.getResultData();
+        notifyObservers();
+    }
+
+    /**
+     * allows you to add a favorite received as a parameter in the database.
+     *
+     * @param item favorite favorite to add.
+     */
+    public void computeAddFavory(FavoritesDto item) {
+        this.favorites.add(item);
+        notifyObservers();
+    }
+
+    /**
+     * used to recalculate the shortest path of a favorite received as a
+     * parameter.
+     *
+     * @param favorite favorite name.
+     */
+    public void computeConsultFavory(String favorite) {
+        dto = favorites.get(favorite);
+        this.search = new Search(dto.getOrigin(), dto.getDestination());
+        this.dataFavoris = search.getResultData();
+        notifyObservers();
+    }
+
     @Override
     public void notifyObservers() {
-        super.notifyObservers(); //To change body of generated methods, choose Tools | Templates.
+        super.notifyObservers();
     }
 
     @Override
     public void addObserver(Observer observer) {
-        super.addObserver(observer); //To change body of generated methods, choose Tools | Templates.
+        super.addObserver(observer);
     }
-    
+
 }

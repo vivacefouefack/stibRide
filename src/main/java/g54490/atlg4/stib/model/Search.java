@@ -16,7 +16,6 @@ public class Search {
     private List<ResultData> resultData;
     private String origin;
     private String destination;
-    private int nbtation;
 
     /**
      * constructor of search. takes the origin and the destination and finds the
@@ -29,15 +28,6 @@ public class Search {
         this.resultData = new ArrayList<>();
         this.origin = origine;
         this.destination = destination;
-        this.nbtation = 0;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getNbtation() {
-        return nbtation;
     }
 
     /**
@@ -59,7 +49,6 @@ public class Search {
             List<StationDto> allResultStation = search.getPath(destination);
 
             for (StationDto list : allResultStation) {
-                this.nbtation++;
                 this.resultData.add(new ResultData(list.getStationName(), stop.selectAllLineInSTation(list.getKey().toString())));
             }
         } catch (IOException o) {
