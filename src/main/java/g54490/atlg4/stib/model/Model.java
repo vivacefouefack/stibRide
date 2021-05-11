@@ -70,6 +70,15 @@ public class Model extends Observable {
     }
 
     /**
+     * 
+     * @return 
+     */
+    public FavoriteRepository getFavorites() {
+        return favorites;
+    }
+    
+
+    /**
      * getter.
      *
      * @return a list of data to be displayed in the results table.
@@ -95,7 +104,8 @@ public class Model extends Observable {
     }
 
     /**
-     * calculate the shortest path between the origin and the destination.
+     * calculate the shortest path between origin and destination and notify
+     * presenter when finished
      *
      * @param origin departure station.
      * @param destination destination station.
@@ -107,7 +117,8 @@ public class Model extends Observable {
     }
 
     /**
-     * allows you to add a favorite received as a parameter in the database.
+     * allows you to add a favorite received as a parameter in the database and
+     * notify presenter when finished.
      *
      * @param item favorite favorite to add.
      */
@@ -118,7 +129,7 @@ public class Model extends Observable {
 
     /**
      * used to recalculate the shortest path of a favorite received as a
-     * parameter.
+     * parameter and notify presenter when finished.
      *
      * @param favorite favorite name.
      */

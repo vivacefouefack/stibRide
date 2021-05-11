@@ -7,16 +7,12 @@ import g54490.atlg4.stib.repository.FavoriteRepository;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -63,7 +59,13 @@ public class FavoriteViewController implements Initializable {
     @FXML
     private Button ok;
     @FXML
-    void actionOk(ActionEvent event) {
+    private Button supprimer;
+    @FXML
+    private Button modifier;
+    @FXML
+    private Button consulter;
+//    @FXML
+//    void actionOk(ActionEvent event) {
 //
 //        if (nouveauNom == null || nouvelleOri == null || nouvelleDes == null) {
 //            this.confirmModification.setText("veuillez introduire un nom,selectionner une origine et une destination");
@@ -72,7 +74,7 @@ public class FavoriteViewController implements Initializable {
 //            this.confirmModification.setText("le favori a été mise à jour ");
 //            disableButtons(true);
 //        }
-    }
+//   }
 
 //    @FXML
 //    void actionConsulter(ActionEvent event) throws IOException {
@@ -86,8 +88,8 @@ public class FavoriteViewController implements Initializable {
 //        }
 //        disableButtons(true);
 //    }
-    @FXML
-    void actionModifier(ActionEvent event) {
+//    @FXML
+//    void actionModifier(ActionEvent event) {
 //        this.erreurSelection.setText("");
 //        this.confirmModification.setText("");
 //        if (searchFavaris.getValue() == null) {
@@ -95,34 +97,34 @@ public class FavoriteViewController implements Initializable {
 //        } else {
 //            disableButtons(false);
 //        }
-    }
+//    }
 
 //    @FXML
 //    void actionQuitter(ActionEvent event) {
 //        Stage stage = (Stage) quitter.getScene().getWindow();
 //        stage.close();
 //    }
-    @FXML
-    void actionSupprimer(ActionEvent event) {
-        this.erreurSelection.setText("");
-        this.confirmModification.setText("");
-        if (searchFavaris.getValue() == null) {
-            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-        } else {
-            Alert dialogC = new Alert(AlertType.CONFIRMATION);
-            dialogC.setTitle("confirmation suppression");
-            dialogC.setHeaderText(null);
-            dialogC.setContentText("etes-vous sur de vouloir supprimer ce favori ?");
-            Optional<ButtonType> answer = dialogC.showAndWait();
-            if (answer.get() == ButtonType.OK) {
-                this.myfavorites.remove(searchFavaris.getValue());
-                this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue()
-                        + " a été supprimé de la liste de vos favoris");
-            } else {
-                this.confirmSuppressio.setText("Opération annulée");
-            }
-        }
-    }
+//    @FXML
+//    void actionSupprimer(ActionEvent event) {
+//        this.erreurSelection.setText("");
+//        this.confirmModification.setText("");
+//        if (searchFavaris.getValue() == null) {
+//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
+//        } else {
+//            Alert dialogC = new Alert(AlertType.CONFIRMATION);
+//            dialogC.setTitle("confirmation suppression");
+//            dialogC.setHeaderText(null);
+//            dialogC.setContentText("etes-vous sur de vouloir supprimer ce favori ?");
+//            Optional<ButtonType> answer = dialogC.showAndWait();
+//            if (answer.get() == ButtonType.OK) {
+//                this.myfavorites.remove(searchFavaris.getValue());
+//                this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue()
+//                        + " a été supprimé de la liste de vos favoris");
+//            } else {
+//                this.confirmSuppressio.setText("Opération annulée");
+//            }
+//        }
+//    }
 
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
@@ -187,6 +189,9 @@ public class FavoriteViewController implements Initializable {
         this.searchFavaris.setItems(itemsFavorite);
         this.nouvelleOri.setItems(items);
         this.nouvelleDes.setItems(items);
+        this.ok.setDisable(true);
+        this.nouvelleDes.setDisable(true);
+        this.nouvelleOri.setDisable(true);
     }
 
     /** 
@@ -196,7 +201,10 @@ public class FavoriteViewController implements Initializable {
     public void addHandlerButton(Presenter presenter) {
         Handler handler = new Handler(presenter);
         quitter.setOnAction(handler);
-        //Addfavorites.setOnAction(handler);
+        ok.setOnAction(handler);
+        modifier.setOnAction(handler);
+        supprimer.setOnAction(handler);
+        consulter.setOnAction(handler);
     }
 
     /**
@@ -252,5 +260,23 @@ public class FavoriteViewController implements Initializable {
     public SearchableComboBox<String> getSearchFavaris() {
         return searchFavaris;
     }
+
+    /**
+     * 
+     * @return 
+     */
+    public SearchableComboBox<String> getNouvelleOri() {
+        return nouvelleOri;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public SearchableComboBox<String> getNouvelleDes() {
+        return nouvelleDes;
+    }
+    
+    
 
 }

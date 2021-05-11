@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,17 +39,17 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="supprimer" layoutX="245.0" layoutY="220.0" mnemonicParsing="false" onAction="#actionSupprimer" text="Supprimer">
+      <Button fx:id="supprimer" layoutX="245.0" layoutY="220.0" mnemonicParsing="false" text="Supprimer">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="modifier" layoutX="159.0" layoutY="220.0" mnemonicParsing="false" onAction="#actionModifier" text="Modifier">
+      <Button fx:id="modifier" layoutX="159.0" layoutY="220.0" mnemonicParsing="false" text="Modifier">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="consulter" layoutX="63.0" layoutY="220.0" mnemonicParsing="false"  text="Consulter">
+      <Button fx:id="consulter" layoutX="63.0" layoutY="220.0" mnemonicParsing="false" text="Consulter">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -65,25 +64,19 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="nouveauNom" layoutX="178.0" layoutY="298.0" />
-      <SearchableComboBox fx:id="nouvelleOri" layoutX="177.0" layoutY="343.0" prefHeight="26.0" prefWidth="149.0" />
-      <SearchableComboBox fx:id="nouvelleDes" layoutX="177.0" layoutY="392.0" prefHeight="26.0" prefWidth="149.0" />
-      <Button fx:id="ok" layoutX="235.0" layoutY="442.0" mnemonicParsing="false" onAction="#actionOk" text="OK">
+      <SearchableComboBox fx:id="nouvelleOri" layoutX="170.0" layoutY="307.0" prefHeight="26.0" prefWidth="149.0" />
+      <SearchableComboBox fx:id="nouvelleDes" layoutX="170.0" layoutY="367.0" prefHeight="26.0" prefWidth="149.0" />
+      <Button fx:id="ok" layoutX="228.0" layoutY="414.0" mnemonicParsing="false" text="OK">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="72.0" layoutY="301.0" text="Nom du favori" textFill="#f2efef">
+      <Label layoutX="58.0" layoutY="310.0" prefHeight="19.0" prefWidth="112.0" text="Origine du favori" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="60.0" layoutY="346.0" prefHeight="19.0" prefWidth="112.0" text="Origine du favori" textFill="WHITE">
-         <font>
-            <Font name="System Bold Italic" size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="33.0" layoutY="395.0" text="Destination du favori" textFill="#f8f7f7">
+      <Label layoutX="33.0" layoutY="371.0" text="Destination du favori" textFill="#f8f7f7">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>
