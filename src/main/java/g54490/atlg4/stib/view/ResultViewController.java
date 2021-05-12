@@ -104,15 +104,24 @@ public class ResultViewController implements Initializable {
      *
      * @param presenter ask the model to do a calculation.
      */
-    public void addHandlerButton(Presenter presenter) {
+    public void addHandlerButtonquitter(Presenter presenter) {
         Handler handler = new Handler(presenter);
         quitter.setOnAction(handler);
-        //Addfavory.setOnAction(handler);
+    }
 
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonAddfavory(Presenter presenter) {
+        Handler handler = new Handler(presenter);
+        //Addfavory.setOnAction(handler);
     }
 
     /**
      * allows you to add data to the results table.
+     *
      * @param datas data list to display.
      */
     public void AddResultData(List<ResultData> datas) {
@@ -126,6 +135,7 @@ public class ResultViewController implements Initializable {
 
     /**
      * getter.
+     *
      * @return quitter button.
      */
     public Button getQuitter() {
@@ -134,6 +144,7 @@ public class ResultViewController implements Initializable {
 
     /**
      * getter.
+     *
      * @return Addfavory button.
      */
     public Button getAddfavory() {
@@ -142,6 +153,7 @@ public class ResultViewController implements Initializable {
 
     /**
      * getter.
+     *
      * @return favoryName textfield.
      */
     public TextField getFavoryName() {
@@ -150,6 +162,7 @@ public class ResultViewController implements Initializable {
 
     /**
      * getter.
+     *
      * @return smsErreur label.
      */
     public Label getSmsErreur() {
@@ -158,6 +171,7 @@ public class ResultViewController implements Initializable {
 
     /**
      * getter.
+     *
      * @return smsConfirm label.
      */
     public Label getSmsConfirm() {

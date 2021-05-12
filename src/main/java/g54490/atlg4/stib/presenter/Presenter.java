@@ -94,13 +94,13 @@ public class Presenter implements Observer {
             //***bouton mes favoris
             model.compute();
             //mainControl.disable(true);
-        } else if (false) {
+        } else if (true) {
             //result/bouton quitter
             mainControl.disable(false);
             Stage stage = (Stage) resultControl.getQuitter().getScene().getWindow();
             stage.close();
             model.compute();
-        } else if (false) {
+        } else if (true) {
             //resul/ajout favori
             resultControl.getSmsErreur().setText("");
             resultControl.getSmsConfirm().setText("");
@@ -110,14 +110,14 @@ public class Presenter implements Observer {
                 model.computeAddFavory(new FavoritesDto(resultControl.getFavoryName().getText(), mainControl.getOrigine().getValue(), mainControl.getDestination().getValue()));
                 resultControl.getSmsConfirm().setText("le favori " + resultControl.getFavoryName().getText() + " a été ajouté aux favoris");
             }
-        } else if (false) {
+        } else if (true) {
             //***bouton quitter favori
             mainControl.disable(false);
             Stage stage = (Stage) resultControl.getQuitter().getScene().getWindow();
             stage.close();
             model.compute();
 
-        } else if (false) {
+        } else if (true) {
             //consulter
             //this.erreurSelection.setText("");
             //this.confirmModification.setText("");
@@ -127,7 +127,7 @@ public class Presenter implements Observer {
                 model.computeConsultFavory(favoriteControl.getSearchFavaris().getValue());
                 //this.AddResultData(dto.getOrigin(), dto.getDestination());
             }
-        } else if (false) {
+        } else if (true) {
             //suppression dans favori
             favoriteControl.getErreurSelection().setText("");
             favoriteControl.getConfirmSuppressio().setText("");
@@ -161,7 +161,7 @@ public class Presenter implements Observer {
                 favoriteControl.getOk().setDisable(false);
             }
             model.compute();
-        } else if (false) {
+        } else if (true) {
             //press ok
 
             if (favoriteControl.getNouvelleOri() == null || favoriteControl.getNouvelleDes() == null
@@ -176,7 +176,7 @@ public class Presenter implements Observer {
                 favoriteControl.getNouvelleDes().setDisable(true);
                 favoriteControl.getOk().setDisable(true);
             }
-        } else if (false) {
+        } else if (true) {
             //***bouton quitter favori
             mainControl.disable(false);
             Stage stage = (Stage) favoriteControl.getQuitter().getScene().getWindow();
@@ -195,10 +195,9 @@ public class Presenter implements Observer {
                 resultControl.AddResultData(((Model) observable).getDatas());
                 resultView.start(new Stage());
                 mainControl.disable(false);
-            } else if (false) {
+            } else if (true) {
                 favoriteView.start(new Stage());
-            } else if (false) {
-                //consult
+            } else if (true) {
                 favoriteControl.AddResultData(model.getDataFavoris());
             }
 

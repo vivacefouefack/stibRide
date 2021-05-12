@@ -32,11 +32,19 @@ public class Application extends javafx.application.Application {
         Presenter presenter = new Presenter(model, Mainview, resultView, favoriteView);
         presenter.initialize();
         model.addObserver(presenter);
+
+        mainViewControl.addHandlerButtonsearch(presenter);
+        mainViewControl.addHandlerButtonitemMesfavoris(presenter);
+        
+        resultviewControl.addHandlerButtonquitter(presenter);
+        resultviewControl.addHandlerButtonAddfavory(presenter);
+        
+        favoriteviewControl.addHandlerButtonConsulter(presenter);
+        favoriteviewControl.addHandlerButtonModifier(presenter);
+        favoriteviewControl.addHandlerButtonSupprimer(presenter);
+        favoriteviewControl.addHandlerButtonOk(presenter);
+        favoriteviewControl.addHandlerButtonQuitter(presenter);
+        
         Mainview.start(stage);
-
-        mainViewControl.addHandlerButton(presenter);
-        favoriteviewControl.addHandlerButton(presenter);
-        resultviewControl.addHandlerButton(presenter);
-
     }
 }

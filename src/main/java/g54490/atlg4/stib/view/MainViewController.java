@@ -100,9 +100,18 @@ public class MainViewController {//implements Initializable{
      *
      * @param presenter ask the model to do a calculation.
      */
-    public void addHandlerButton(Presenter presenter) {
+    public void addHandlerButtonsearch(Presenter presenter) {
         Handler handler = new Handler(presenter);
         search.setOnAction(handler);
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonitemMesfavoris(Presenter presenter) {
+        Handler handler = new Handler(presenter);
         itemMesfavoris.setOnAction(handler);
     }
 

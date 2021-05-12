@@ -98,7 +98,6 @@ public class FavoriteViewController implements Initializable {
 //            disableButtons(false);
 //        }
 //    }
-
 //    @FXML
 //    void actionQuitter(ActionEvent event) {
 //        Stage stage = (Stage) quitter.getScene().getWindow();
@@ -125,7 +124,6 @@ public class FavoriteViewController implements Initializable {
 //            }
 //        }
 //    }
-
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
 
@@ -151,8 +149,8 @@ public class FavoriteViewController implements Initializable {
     }
 
     /**
-     * 
-     * @param data 
+     *
+     * @param data
      */
     public void AddResultData(List<ResultData> data) {
         if (this.tableView != null) {
@@ -182,6 +180,7 @@ public class FavoriteViewController implements Initializable {
 
     /**
      * initializes the list of all favorites and the list of all station names.
+     *
      * @param itemsFavorite all name favorites list
      * @param items all name station list.
      */
@@ -194,16 +193,53 @@ public class FavoriteViewController implements Initializable {
         this.nouvelleOri.setDisable(true);
     }
 
-    /** 
+    /**
      * allows you to add a button to the event manager.
+     *
      * @param presenter ask the model to do a calculation.
      */
-    public void addHandlerButton(Presenter presenter) {
+    public void addHandlerButtonQuitter(Presenter presenter) {
         Handler handler = new Handler(presenter);
         quitter.setOnAction(handler);
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonOk(Presenter presenter) {
+        Handler handler = new Handler(presenter);
         ok.setOnAction(handler);
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonModifier(Presenter presenter) {
+        Handler handler = new Handler(presenter);
         modifier.setOnAction(handler);
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonSupprimer(Presenter presenter) {
+        Handler handler = new Handler(presenter);
         supprimer.setOnAction(handler);
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonConsulter(Presenter presenter) {
+        Handler handler = new Handler(presenter);
         consulter.setOnAction(handler);
     }
 
@@ -262,21 +298,19 @@ public class FavoriteViewController implements Initializable {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public SearchableComboBox<String> getNouvelleOri() {
         return nouvelleOri;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public SearchableComboBox<String> getNouvelleDes() {
         return nouvelleDes;
     }
-    
-    
 
 }
