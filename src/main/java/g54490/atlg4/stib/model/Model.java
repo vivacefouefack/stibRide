@@ -71,10 +71,22 @@ public class Model extends Observable {
 
     /**
      * 
-     * @return 
+     * @throws IOException 
      */
-    public FavoriteRepository getFavorites() {
-        return favorites;
+    public void setSearchData() throws IOException {
+        this.searchData =favorites.getFavoritesName();
+    }
+    
+    
+
+
+    /**
+     * 
+     * @param favorite 
+     */
+    public void updateFavorites(FavoritesDto favorite) {
+        this.favorites.update(favorite);
+        notifyObservers(favorites);
     }
     
 
@@ -99,8 +111,8 @@ public class Model extends Observable {
     /**
      *
      */
-    public void compute() {
-        notifyObservers();
+    public void computeNewFavoriteStage() {
+        notifyObservers(1);
     }
 
     /**
@@ -113,7 +125,7 @@ public class Model extends Observable {
     public void computePath(String origin, String destination) {
         this.search = new Search(origin, destination);
         this.datas = search.getResultData();
-        notifyObservers();
+        notifyObservers(search);
     }
 
     /**
@@ -122,9 +134,17 @@ public class Model extends Observable {
      *
      * @param item favorite favorite to add.
      */
-    public void computeAddFavory(FavoritesDto item) {
+    
+    /**
+     * allows you to add a favorite received as a parameter in the database and
+     * notify presenter when finished.
+     * @param item  favorite favorite to add.
+     * @throws IOException en cas d"erreur d'actualisation de la base de donnée.
+     */
+    public void computeAddFavory(FavoritesDto item) throws IOException {
         this.favorites.add(item);
-        notifyObservers();
+        this.searchFavoryData = favorites.getFavoritesName();
+        notifyObservers(dto.getKey());
     }
 
     /**
@@ -137,7 +157,12 @@ public class Model extends Observable {
         dto = favorites.get(favorite);
         this.search = new Search(dto.getOrigin(), dto.getDestination());
         this.dataFavoris = search.getResultData();
-        notifyObservers();
+        notifyObservers(this);
+    }
+    
+    public void computeDeletefavorite(String favorite) {
+        favorites.remove(favorite);
+        notifyObservers(dto);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package g54490.atlg4.stib.view;
 
-import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.model.ResultData;
 import g54490.atlg4.stib.presenter.Presenter;
 import g54490.atlg4.stib.repository.FavoriteRepository;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,9 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
 /**
@@ -28,10 +26,6 @@ import org.controlsfx.control.SearchableComboBox;
  */
 public class FavoriteViewController implements Initializable {
 
-    @FXML
-    private AnchorPane parent;
-    @FXML
-    private Label nbStation;
     @FXML
     private TableView<ResultData> tableView;
     @FXML
@@ -46,8 +40,6 @@ public class FavoriteViewController implements Initializable {
     private Label erreurSelection;
     @FXML
     private Label confirmSuppressio;
-    @FXML
-    private TextField nouveauNom;
     @FXML
     private Button Addfavorites;
     @FXML
@@ -64,66 +56,6 @@ public class FavoriteViewController implements Initializable {
     private Button modifier;
     @FXML
     private Button consulter;
-//    @FXML
-//    void actionOk(ActionEvent event) {
-//
-//        if (nouveauNom == null || nouvelleOri == null || nouvelleDes == null) {
-//            this.confirmModification.setText("veuillez introduire un nom,selectionner une origine et une destination");
-//        } else {
-//            myfavorites.update(new FavoritesDto(nouveauNom.getText(), nouvelleOri.getValue(), nouvelleDes.getValue()));
-//            this.confirmModification.setText("le favori a été mise à jour ");
-//            disableButtons(true);
-//        }
-//   }
-
-//    @FXML
-//    void actionConsulter(ActionEvent event) throws IOException {
-//        this.erreurSelection.setText("");
-//        this.confirmModification.setText("");
-//        if (searchFavaris.getValue() == null) {
-//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-//        } else {
-//            FavoritesDto dto = myfavorites.get(searchFavaris.getValue());
-//           // this.AddResultData(dto.getOrigin(), dto.getDestination());
-//        }
-//        disableButtons(true);
-//    }
-//    @FXML
-//    void actionModifier(ActionEvent event) {
-//        this.erreurSelection.setText("");
-//        this.confirmModification.setText("");
-//        if (searchFavaris.getValue() == null) {
-//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-//        } else {
-//            disableButtons(false);
-//        }
-//    }
-//    @FXML
-//    void actionQuitter(ActionEvent event) {
-//        Stage stage = (Stage) quitter.getScene().getWindow();
-//        stage.close();
-//    }
-//    @FXML
-//    void actionSupprimer(ActionEvent event) {
-//        this.erreurSelection.setText("");
-//        this.confirmModification.setText("");
-//        if (searchFavaris.getValue() == null) {
-//            this.erreurSelection.setText("? erreur veuillez selectionner un favori");
-//        } else {
-//            Alert dialogC = new Alert(AlertType.CONFIRMATION);
-//            dialogC.setTitle("confirmation suppression");
-//            dialogC.setHeaderText(null);
-//            dialogC.setContentText("etes-vous sur de vouloir supprimer ce favori ?");
-//            Optional<ButtonType> answer = dialogC.showAndWait();
-//            if (answer.get() == ButtonType.OK) {
-//                this.myfavorites.remove(searchFavaris.getValue());
-//                this.confirmSuppressio.setText("le favori " + this.searchFavaris.getValue()
-//                        + " a été supprimé de la liste de vos favoris");
-//            } else {
-//                this.confirmSuppressio.setText("Opération annulée");
-//            }
-//        }
-//    }
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
 
@@ -138,11 +70,9 @@ public class FavoriteViewController implements Initializable {
         this.lignes = new TableColumn<>();
         this.searchFavaris = new SearchableComboBox<>();
         this.confirmSuppressio = new Label();
-        this.nbStation = new Label();
         this.erreurSelection = new Label();
         this.myfavorites = new FavoriteRepository();
         this.ok = new Button();
-        this.nouveauNom = new TextField();
         this.nouvelleOri = new SearchableComboBox<>();
         this.nouvelleDes = new SearchableComboBox<>();
         this.confirmModification = new Label();
@@ -153,10 +83,9 @@ public class FavoriteViewController implements Initializable {
      * @param data
      */
     public void AddResultData(List<ResultData> data) {
-        if (this.tableView != null) {
+        if (this.tableView != null || data == null) {
             this.tableView.getItems().clear();
         }
-
         for (ResultData oneLine : data) {
             this.tableView.getItems().add(oneLine);
         }
@@ -167,15 +96,6 @@ public class FavoriteViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.stations.setCellValueFactory(new PropertyValueFactory<ResultData, String>("nameStation"));
         this.lignes.setCellValueFactory(new PropertyValueFactory<ResultData, String>("lines"));
-//        try {
-//            StationRepository stations = new StationRepository();
-//            this.searchFavaris.setItems(myfavorites.getFavoritesName());
-//            this.nouvelleOri.setItems(stations.getStationName());
-//            this.nouvelleDes.setItems(stations.getStationName());
-//        } catch (IOException ex) {
-//            Logger.getLogger(FavoriteViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        disableButtons(true);
     }
 
     /**
@@ -199,8 +119,12 @@ public class FavoriteViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonQuitter(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        quitter.setOnAction(handler);
+        quitter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.closeFavoriteView();
+            }
+        });
     }
 
     /**
@@ -209,8 +133,12 @@ public class FavoriteViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonOk(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        ok.setOnAction(handler);
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.updateFavorite();
+            }
+        });
     }
 
     /**
@@ -219,8 +147,12 @@ public class FavoriteViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonModifier(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        modifier.setOnAction(handler);
+        modifier.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.updateButton();
+            }
+        });
     }
 
     /**
@@ -229,8 +161,12 @@ public class FavoriteViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonSupprimer(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        supprimer.setOnAction(handler);
+        supprimer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.supprimer();
+            }
+        });
     }
 
     /**
@@ -239,8 +175,12 @@ public class FavoriteViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonConsulter(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        consulter.setOnAction(handler);
+        consulter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.Consulter();
+            }
+        });
     }
 
     /**
@@ -298,19 +238,30 @@ public class FavoriteViewController implements Initializable {
     }
 
     /**
+     * getter.
      *
-     * @return
+     * @return nouvelleOri
      */
     public SearchableComboBox<String> getNouvelleOri() {
         return nouvelleOri;
     }
 
     /**
+     * getter.
      *
-     * @return
+     * @return nouvelleDes.
      */
     public SearchableComboBox<String> getNouvelleDes() {
         return nouvelleDes;
+    }
+
+    /**
+     * getter.
+     *
+     * @return data value list of tableView.
+     */
+    public TableView<ResultData> getTableView() {
+        return tableView;
     }
 
 }

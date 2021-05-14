@@ -1,16 +1,19 @@
 package g54490.atlg4.stib.view;
 
-import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.model.ResultData;
 import g54490.atlg4.stib.presenter.Presenter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,7 +32,7 @@ public class ResultViewController implements Initializable {
     @FXML
     private TableColumn<ResultData, String> tLine;
     @FXML
-    private Button Addfavory;
+    private Button Addfavorites;
     @FXML
     private TextField favoryName;
     @FXML
@@ -41,43 +44,6 @@ public class ResultViewController implements Initializable {
     @FXML
     private Button quitter;
 
-//    @FXML void actionQuitter(ActionEvent event) {
-//        Stage stage = (Stage) quitter.getScene().getWindow();
-//        search.setDisable(false);
-//        this.itemMesfavoris.setDisable(false);
-//        stage.close();
-//    }
-//    @FXML void actionAddFavorites(ActionEvent event) throws IOException {
-//        this.smsErreur.setText("");
-//        this.smsConfirm.setText("");
-//        System.out.println(this.favoryName.getText().length());
-//        if (this.favoryName.getText().length()==0) {
-//            this.smsErreur.setText("Veuillez fournir le nom du favori");
-//        } else {
-//            FavoriteRepository favorites=new FavoriteRepository();
-//            this.smsConfirm.setText("le favori " + this.favoryName.getText() + " a été ajouté aux favoris");
-//            favorites.add(new FavoritesDto(this.favoryName.getText(), origin, destination));
-//        }
-//    }
-//  
-//    public void AddResultData(String origin, String destination) {
-//        if (this.tableView != null) {
-//            this.tableView.getItems().clear();
-//        }
-//        this.origin = origin; 
-//        this.destination = destination;
-//        Search search = new Search(origin, destination);
-//        List<ResultData> data = search.getResultData();
-//        for (ResultData oneLine : data) {
-//            this.tableView.getItems().add(oneLine);
-//        }
-//        this.nbStations.setText("Nomnbres de stations : " + search.getNbtation());
-//    }
-    private String origin;
-    private String destination;
-    private Button search;
-    private MenuItem itemMesfavoris;
-
     /**
      * constructor of mainViewResultControl.
      */
@@ -87,8 +53,7 @@ public class ResultViewController implements Initializable {
         this.tableView = new TableView<>();
         this.favoryName = new TextField();
         this.nbStations = new Label();
-        this.origin = "";
-        this.destination = "";
+        this.favoryName=new TextField();
         this.smsErreur = new Label();
         this.smsConfirm = new Label();
     }
@@ -105,8 +70,12 @@ public class ResultViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonquitter(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        quitter.setOnAction(handler);
+        quitter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                presenter.closeResultView();
+            }
+        });
     }
 
     /**
@@ -115,8 +84,16 @@ public class ResultViewController implements Initializable {
      * @param presenter ask the model to do a calculation.
      */
     public void addHandlerButtonAddfavory(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        //Addfavory.setOnAction(handler);
+        Addfavorites.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                try {
+                    presenter.addFavorite();
+                } catch (IOException ex) {
+                    Logger.getLogger(ResultViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -142,24 +119,10 @@ public class ResultViewController implements Initializable {
         return quitter;
     }
 
-    /**
-     * getter.
-     *
-     * @return Addfavory button.
-     */
-    public Button getAddfavory() {
-        return Addfavory;
-    }
-
-    /**
-     * getter.
-     *
-     * @return favoryName textfield.
-     */
     public TextField getFavoryName() {
         return favoryName;
     }
-
+    
     /**
      * getter.
      *

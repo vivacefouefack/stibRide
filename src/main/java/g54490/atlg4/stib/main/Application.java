@@ -20,31 +20,17 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
         MainView Mainview = new MainView();
-        ResultView resultView = new ResultView();
-        FavoriteView favoriteView = new FavoriteView();
-
         MainViewController mainViewControl = Mainview.getFxmlLoader().getController();
-        ResultViewController resultviewControl = resultView.getFxmlLoader().getController();
-        FavoriteViewController favoriteviewControl = favoriteView.getFxmlLoader().getController();
 
         Model model = new Model();
 
-        Presenter presenter = new Presenter(model, Mainview, resultView, favoriteView);
+        Presenter presenter = new Presenter(model, Mainview);
         presenter.initialize();
         model.addObserver(presenter);
 
         mainViewControl.addHandlerButtonsearch(presenter);
         mainViewControl.addHandlerButtonitemMesfavoris(presenter);
-        
-        resultviewControl.addHandlerButtonquitter(presenter);
-        resultviewControl.addHandlerButtonAddfavory(presenter);
-        
-        favoriteviewControl.addHandlerButtonConsulter(presenter);
-        favoriteviewControl.addHandlerButtonModifier(presenter);
-        favoriteviewControl.addHandlerButtonSupprimer(presenter);
-        favoriteviewControl.addHandlerButtonOk(presenter);
-        favoriteviewControl.addHandlerButtonQuitter(presenter);
-        
+        presenter.initialize();
         Mainview.start(stage);
     }
 }

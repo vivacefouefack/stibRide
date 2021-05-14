@@ -21,9 +21,13 @@ public class FavoriteView extends Application {
      * constructor.
      * @throws IOException if the resource is not found.
      */
-    public FavoriteView() throws IOException {
+    public FavoriteView() throws IOException  {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/stibFavorites.fxml"));
         this.root=fxmlLoader.load();
+    }
+
+    public Parent getRoot() {
+        return root;
     }
 
     /**

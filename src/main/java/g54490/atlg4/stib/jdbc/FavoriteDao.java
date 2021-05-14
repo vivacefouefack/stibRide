@@ -1,6 +1,7 @@
 package g54490.atlg4.stib.jdbc;
 
 import g54490.atlg4.stib.dto.FavoritesDto;
+import g54490.atlg4.stib.exception.ExceptionsClasse;
 import g54490.atlg4.stib.repository.Dao;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * this class allows us to access data from the favorites table of the database.
@@ -22,6 +25,7 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
 
     /**
      * constructor of favoriteDao.
+     *
      * @throws IOException if the connection to the database fails.
      */
     public FavoriteDao() throws IOException {
@@ -29,9 +33,9 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
 
     }
 
-  
     /**
      * allows to get an instance of the class for security reasons.
+     *
      * @return the class instance;
      * @throws IOException if he cannot access the database.
      */
@@ -39,9 +43,9 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         return FavoriteDaoHolder.getInstance();
     }
 
-   /**
-    * creates a instance of the FavoriteDao for security reasons.
-    */
+    /**
+     * creates a instance of the FavoriteDao for security reasons.
+     */
     private static class FavoriteDaoHolder {
 
         private static FavoriteDao getInstance() throws IOException {
@@ -63,7 +67,7 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
             pstmt.executeUpdate();
             ResultSet result = pstmt.getGeneratedKeys();
             while (result.next()) {
-                name = result.getString(2);
+                name = result.getString(1);
             }
         } catch (SQLException e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -88,16 +92,24 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
     @Override
     public void update(FavoritesDto item) {
         if (item == null) {
-            throw new IllegalArgumentException("Aucune élément donné en paramètre");
+            try {
+                throw new ExceptionsClasse("Aucune élément donné en paramètre");
+            } catch (ExceptionsClasse ex) {
+                Logger.getLogger(FavoriteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        String sql = "UPDATE FAVORITES SET name=? ,origine=? destination=? where name=? ";
-        try (PreparedStatement pstmt = connexion.prepareStatement(sql)) {
-            pstmt.setString(1, item.getKey());
-            pstmt.setString(2, item.getOrigin());
-            pstmt.setString(3, item.getDestination());
+        String query = "UPDATE FAVORITES SET origine=? ,destination=? where name=? ";
+        try (PreparedStatement pstmt = connexion.prepareStatement(query)) {
+            pstmt.setString(1, item.getOrigin());
+            pstmt.setString(2, item.getDestination());
+            pstmt.setString(3, item.getKey());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            try {
+                throw new ExceptionsClasse(e.getMessage());
+            } catch (ExceptionsClasse ex) {
+                Logger.getLogger(FavoriteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -119,7 +131,8 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
     }
 
     @Override
-    public FavoritesDto select(String key) {
+    public FavoritesDto select(String key
+    ) {
         String query = "SELECT * FROM FAVORITES WHERE name=?";
         FavoritesDto dto = null;
         try (PreparedStatement pstmt = connexion.prepareStatement(query)) {
@@ -131,4 +144,5 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
         }
         return dto;
     }
+
 }

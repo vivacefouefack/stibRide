@@ -1,21 +1,22 @@
 package g54490.atlg4.stib.view;
 
-import g54490.atlg4.stib.handler.Handler;
 import g54490.atlg4.stib.presenter.Presenter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
 /**
  *
  * @author 54490@etu.he2b.be
  */
-public class MainViewController {//implements Initializable{
+public class MainViewController {
 
     @FXML
     private SearchableComboBox<String> destination;
@@ -24,97 +25,10 @@ public class MainViewController {//implements Initializable{
     @FXML
     private MenuItem itemMesfavoris;
     @FXML
-    private ImageView image1;
-    @FXML
-    private AnchorPane parent;
-    @FXML
     private Button search;
     @FXML
     private Label erreur;
-
-//    @FXML
-//    void launchFavoritePage(ActionEvent event) throws IOException, Exception {
-//        FavoriteView view = new FavoriteView();
-//        FavoriteViewController mainControl = view.getFxmlLoader().getController();
-//        mainControl.disableButton(search, itemMesfavoris);
-//        this.itemMesfavoris.setDisable(true);
-//        this.search.setDisable(true);
-//        view.start(new Stage());
-//    }
-    /**
-     * launches the search algorithm and displays the result in a new window
-     * when you click on the search button
-     *
-     * @param event ActionEvent;
-     */
-//    @FXML
-//    private void search(ActionEvent event) {
-//        this.originchoice=origine.getValue();
-//        this.destinationChoice=destination.getValue();
-//        
-//        try {
-//            this.erreur.setText("");
-//            if (origine.getValue() == null || destination.getValue() == null) {
-//                this.erreur.setText("? erreur veuillez selectionner l'origine et la destination");
-//            } else {
-//                
-//                
-////                ResultView result = new ResultView();
-////                ResultViewController mainController = result.fxmlLoader.getController();
-////                mainController.AddResultData(origine.getValue(), destination.getValue());
-////                mainController.disableButton(search, itemMesfavoris);
-////                result.start(new Stage());
-////                mainController.disableButton(search, itemMesfavoris);
-////                this.search.setDisable(true);
-////                this.itemMesfavoris.setDisable(true);
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("erreur" + e.getMessage());
-//        }
-//   }
-//    public void MainViewController(Stage stage) throws IOException{
-//        
-//        Parent root =FXMLLoader.load(getClass().getResource("/fxml/stibInterface.fxml"));
-//        Scene scene = new Scene(root);
-//        
-//        stage.getIcons().add(new Image("/icons/logo.png"));
-//        stage.setTitle("Stib Ride");
-//        stage.setScene(scene);
-//        stage.setResizable(false);
-//        stage.show();
-//    }
-//    
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        try {
-//            StationRepository stations = new StationRepository();
-//            this.origine.setItems(stations.getStationName());
-//            this.destination.setItems(stations.getStationName());
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-    /**
-     * allows you to add a button to the event manager.
-     *
-     * @param presenter ask the model to do a calculation.
-     */
-    public void addHandlerButtonsearch(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        search.setOnAction(handler);
-    }
-
-    /**
-     * allows you to add a button to the event manager.
-     *
-     * @param presenter ask the model to do a calculation.
-     */
-    public void addHandlerButtonitemMesfavoris(Presenter presenter) {
-        Handler handler = new Handler(presenter);
-        itemMesfavoris.setOnAction(handler);
-    }
-
+    
     /**
      * constructor of mainViewController.
      */
@@ -123,6 +37,42 @@ public class MainViewController {//implements Initializable{
         this.origine = new SearchableComboBox<String>();
         this.erreur = new Label();
         this.itemMesfavoris = new MenuItem();
+    }
+    
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonsearch(Presenter presenter) {
+        search.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                try {
+                    presenter.search();
+                } catch (Exception ex) {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    /**
+     * allows you to add a button to the event manager.
+     *
+     * @param presenter ask the model to do a calculation.
+     */
+    public void addHandlerButtonitemMesfavoris(Presenter presenter) {
+        itemMesfavoris.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                try {
+                    presenter.myfavorites();
+                } catch (Exception ex) {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     /**
@@ -133,18 +83,6 @@ public class MainViewController {//implements Initializable{
     public void initialize(ObservableList<String> allNameStations) {
         this.origine.setItems(allNameStations);
         this.destination.setItems(allNameStations);
-    }
-
-    /**
-     * allows to deactivate the buttons when the model performs the calculation
-     * and to reactivate them at the end of the calculation according to the
-     * boolean received
-     *
-     * @param answer allows you to know if you deactivate or not.
-     */
-    public void disable(boolean answer) {
-        this.search.setDisable(answer);
-        this.itemMesfavoris.setDisable(answer);
     }
 
     /**
@@ -181,6 +119,14 @@ public class MainViewController {//implements Initializable{
      */
     public MenuItem getItemMesfavoris() {
         return itemMesfavoris;
+    }
+
+    /**
+     * getter.
+     * @return search button.
+     */
+    public Button getSearch() {
+        return search;
     }
 
 }

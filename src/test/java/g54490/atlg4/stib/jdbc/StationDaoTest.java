@@ -1,17 +1,20 @@
 package g54490.atlg4.stib.jdbc;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  *
  * @author 54490@etu.he2b.be
  */
+@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class StationDaoTest {
-    
-    public StationDaoTest() {
-    }
 
+  
     @Test
     public void testGetInstance() throws Exception {
     }
@@ -39,5 +42,5 @@ public class StationDaoTest {
     @Test
     public void testSelectGetName() {
     }
-    
+
 }

@@ -27,6 +27,10 @@ public class ResultView extends Application {
         this.root = fxmlLoader.load();
     }
 
+    public Parent getRoot() {
+        return root;
+    }
+
     /**
      * getter.
      *
@@ -39,7 +43,7 @@ public class ResultView extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(this.root);
+        Scene scene= new Scene(this.root);
 
         stage.getIcons().add(new Image("/icons/logo.png"));
         stage.setTitle("Result");
