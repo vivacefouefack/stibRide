@@ -1,4 +1,4 @@
-package g54490.atlg4.stib.model;
+package g54490.atlg4.stib.obersers;
 
 import java.util.ArrayList;
 import java.util.List;

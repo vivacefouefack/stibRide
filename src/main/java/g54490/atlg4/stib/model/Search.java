@@ -21,8 +21,8 @@ public class Search {
      * constructor of search. takes the origin and the destination and finds the
      * most common route in the metro network of the stib
      *
-     * @param origine
-     * @param destination
+     * @param origine name of departure station.
+     * @param destination dname ofestination station.
      */
     public Search(String origine, String destination) {
         this.resultData = new ArrayList<>();

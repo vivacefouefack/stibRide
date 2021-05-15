@@ -1,4 +1,4 @@
-package g54490.atlg4.stib.model;
+package g54490.atlg4.stib.obersers;
 
 /**
  * A class can implement the {@code Observer} interface when it wants to be

@@ -79,8 +79,10 @@ public class FavoriteViewController implements Initializable {
     }
 
     /**
+     * allows to populate the table through a list of data received as a
+     * parameter.
      *
-     * @param data
+     * @param data data list to add in the tableView.
      */
     public void AddResultData(List<ResultData> data) {
         if (this.tableView != null || data == null) {
@@ -89,7 +91,6 @@ public class FavoriteViewController implements Initializable {
         for (ResultData oneLine : data) {
             this.tableView.getItems().add(oneLine);
         }
-        //this.nbStation.setText("Nomnbres de stations : " + r.getNbtation());
     }
 
     @Override

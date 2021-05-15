@@ -1,5 +1,7 @@
 package g54490.atlg4.stib.model;
 
+import g54490.atlg4.stib.obersers.Observer;
+import g54490.atlg4.stib.obersers.Observable;
 import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.repository.FavoriteRepository;
 import g54490.atlg4.stib.repository.StationRepository;

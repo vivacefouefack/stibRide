@@ -2,8 +2,8 @@ package g54490.atlg4.stib.presenter;
 
 import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.model.Model;
-import g54490.atlg4.stib.model.Observable;
-import g54490.atlg4.stib.model.Observer;
+import g54490.atlg4.stib.obersers.Observable;
+import g54490.atlg4.stib.obersers.Observer;
 import g54490.atlg4.stib.model.Search;
 import g54490.atlg4.stib.repository.FavoriteRepository;
 import g54490.atlg4.stib.view.FavoriteView;
@@ -43,6 +43,8 @@ public class Presenter implements Observer {
      *
      * @param model will do all the necessary calculations.
      * @param Mainview is a view of the presenter
+     * @throws IOException if the fxml favorite file has not been loaded or if
+     * the fxml result file has not been loaded.
      */
     public Presenter(Model model, MainView Mainview) throws IOException {
         this.model = model;
@@ -103,8 +105,9 @@ public class Presenter implements Observer {
     }
 
     /**
+     * allows you to add a favorite in the database.
      *
-     * @throws IOException
+     * @throws IOException if the connection to the database fails.
      */
     public void addFavorite() throws IOException {
         initializeTextDispplay();
@@ -180,7 +183,8 @@ public class Presenter implements Observer {
     }
 
     /**
-     *
+     * activates the station name search zones when you want to modify a
+     * favorite.
      */
     public void updateButton() {
         initializeTextDispplay();
@@ -192,8 +196,7 @@ public class Presenter implements Observer {
     }
 
     /**
-     * activates the station name search zones when you want to modify a
-     * favorite.
+     * allows you to modify an existing favorite.
      */
     public void updateFavorite() {
 
