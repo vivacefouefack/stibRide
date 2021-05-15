@@ -117,7 +117,7 @@ public class Presenter implements Observer {
             if (model.getSearchFavoryData().contains(resultControl.getFavoryName().getText())) {
                 resultControl.getNotInsert().setText("Attention! ce nom existe déjà");
             } else {
-                model.computeAddFavory(new FavoritesDto(resultControl.getFavoryName().getText(),
+                model.computeAddFavory(new FavoritesDto(0, resultControl.getFavoryName().getText(),
                         mainControl.getOrigine().getValue(), mainControl.getDestination().getValue()));
             }
         }
@@ -180,6 +180,7 @@ public class Presenter implements Observer {
         favoriteControl.getNouvelleOri().setDisable(disable);
         favoriteControl.getNouvelleDes().setDisable(disable);
         favoriteControl.getOk().setDisable(disable);
+        favoriteControl.getNewNam().setDisable(disable);
     }
 
     /**
@@ -199,13 +200,21 @@ public class Presenter implements Observer {
      * allows you to modify an existing favorite.
      */
     public void updateFavorite() {
-
-        if (favoriteControl.getNouvelleOri() == null || favoriteControl.getNouvelleDes() == null
-                || favoriteControl.getNouvelleOri() == favoriteControl.getNouvelleDes()) {
-            favoriteControl.getConfirmModification().setText("veuillez selectionner une origine et une destination");
+        if (favoriteControl.getNewNam().getText().length() ==0|| favoriteControl.getNouvelleOri().getValue() == null || 
+                favoriteControl.getNouvelleDes().getValue() == null|| favoriteControl.getNouvelleOri().getValue() ==
+                favoriteControl.getNouvelleDes().getValue()) {
+            favoriteControl.getConfirmModification().setText("veuillez introduire un nom,selectionner une origine et une destination");
         } else {
-            model.updateFavorites(new FavoritesDto(favoriteControl.getSearchFavaris().getValue(),
-                    favoriteControl.getNouvelleOri().getValue(), favoriteControl.getNouvelleDes().getValue()));
+            String name = favoriteControl.getSearchFavaris().getValue();
+            
+            if (model.getSearchFavoryData().contains(favoriteControl.getNewNam().getText())) {
+                favoriteControl.getErreurSelection().setText("Attention! ce nom existe déjà");
+            } else {
+                model.updateFavorites(new FavoritesDto(model.computeKey(name), favoriteControl.getNewNam().getText(),
+                        favoriteControl.getNouvelleOri().getValue(), favoriteControl.getNouvelleDes().getValue()));
+                //favoriteControl.getSearchFavaris().setItems(FXCollections.observableArrayList(model.getallFavoriteName()));
+            }
+
         }
     }
 
@@ -270,6 +279,8 @@ public class Presenter implements Observer {
                 Logger.getLogger(Presenter.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (arg instanceof FavoriteRepository) {
+            initializeTextDispplay();
+            favoriteControl.getSearchFavaris().setItems(FXCollections.observableArrayList(model.getallFavoriteName()));
             favoriteControl.getConfirmModification().setText("le favori a été mise à jour ");
             disableButton(true);
         } else {

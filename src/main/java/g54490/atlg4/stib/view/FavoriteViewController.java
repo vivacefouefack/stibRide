@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -56,6 +57,9 @@ public class FavoriteViewController implements Initializable {
     private Button modifier;
     @FXML
     private Button consulter;
+    @FXML
+    private TextField newNam;
+
     private MenuItem itemMesfavoris;
     private FavoriteRepository myfavorites;
 
@@ -76,6 +80,7 @@ public class FavoriteViewController implements Initializable {
         this.nouvelleOri = new SearchableComboBox<>();
         this.nouvelleDes = new SearchableComboBox<>();
         this.confirmModification = new Label();
+        this.newNam=new TextField();
     }
 
     /**
@@ -112,6 +117,7 @@ public class FavoriteViewController implements Initializable {
         this.ok.setDisable(true);
         this.nouvelleDes.setDisable(true);
         this.nouvelleOri.setDisable(true);
+        this.newNam.setDisable(true);
     }
 
     /**
@@ -263,6 +269,14 @@ public class FavoriteViewController implements Initializable {
      */
     public TableView<ResultData> getTableView() {
         return tableView;
+    }
+
+    /**
+     * getter.
+     * @return new namme.
+     */
+    public TextField getNewNam() {
+        return newNam;
     }
 
 }

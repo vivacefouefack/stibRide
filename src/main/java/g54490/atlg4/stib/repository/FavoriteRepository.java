@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author 54490@etu.he2b.be
  */
-public class FavoriteRepository implements Repository<String, FavoritesDto> {
+public class FavoriteRepository implements Repository<Integer, FavoritesDto> {
 
     private FavoriteDao dao;
 
@@ -27,12 +27,12 @@ public class FavoriteRepository implements Repository<String, FavoritesDto> {
     }
 
     @Override
-    public String add(FavoritesDto item) {
+    public Integer add(FavoritesDto item) {
         return dao.insert(item);
     }
 
     @Override
-    public void remove(String key) {
+    public void remove(Integer key) {
         this.dao.delete(key);
     }
 
@@ -42,13 +42,17 @@ public class FavoriteRepository implements Repository<String, FavoritesDto> {
     }
 
     @Override
-    public FavoritesDto get(String key) {
+    public FavoritesDto get(Integer key) {
         return this.dao.select(key);
     }
 
     @Override
-    public boolean contains(String key) {
+    public boolean contains(Integer key) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public FavoritesDto getName(String key) {
+        return this.dao.selectName(key);
     }
 
     /**

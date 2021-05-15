@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -64,27 +65,33 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <SearchableComboBox fx:id="nouvelleOri" layoutX="170.0" layoutY="307.0" prefHeight="26.0" prefWidth="149.0" />
-      <SearchableComboBox fx:id="nouvelleDes" layoutX="170.0" layoutY="367.0" prefHeight="26.0" prefWidth="149.0" />
-      <Button fx:id="ok" layoutX="228.0" layoutY="414.0" mnemonicParsing="false" text="OK">
+      <SearchableComboBox fx:id="nouvelleOri" layoutX="173.0" layoutY="367.0" prefHeight="26.0" prefWidth="149.0" />
+      <SearchableComboBox fx:id="nouvelleDes" layoutX="173.0" layoutY="416.0" prefHeight="26.0" prefWidth="149.0" />
+      <Button fx:id="ok" layoutX="228.0" layoutY="466.0" mnemonicParsing="false" text="OK">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label layoutX="58.0" layoutY="310.0" prefHeight="19.0" prefWidth="112.0" text="Origine du favori" textFill="WHITE">
+      <Label layoutX="63.0" layoutY="370.0" prefHeight="19.0" prefWidth="112.0" text="Origine du favori" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="371.0" text="Destination du favori" textFill="#f8f7f7">
+      <Label layoutX="42.0" layoutY="419.0" text="Destination du favori" textFill="#f8f7f7">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="confirmModification" layoutX="72.0" layoutY="479.0" prefHeight="18.0" prefWidth="246.0" textFill="#51dd15">
+      <Label fx:id="confirmModification" layoutX="43.0" layoutY="498.0" prefHeight="19.0" prefWidth="434.0" textFill="#51dd15">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
+      <Label layoutX="75.0" layoutY="326.0" text="Nom du favori" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="newNam" layoutX="173.0" layoutY="323.0" />
    </children>
 </AnchorPane>

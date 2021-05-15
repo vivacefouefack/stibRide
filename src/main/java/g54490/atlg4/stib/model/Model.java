@@ -63,7 +63,7 @@ public class Model extends Observable {
         List<FavoritesDto> stations;
         stations = favorites.getAll();
         for (FavoritesDto dto : stations) {
-            favoriteName.add(dto.getKey());
+            favoriteName.add(dto.getName());
         }
         return favoriteName;
     }
@@ -145,7 +145,7 @@ public class Model extends Observable {
     public void computeAddFavory(FavoritesDto item) throws IOException {
         this.favorites.add(item);
         this.searchFavoryData = FXCollections.observableArrayList(getallFavoriteName());
-        notifyObservers(item.getKey());
+        notifyObservers(item.getName());
     }
 
     /**
@@ -155,10 +155,20 @@ public class Model extends Observable {
      * @param favorite favorite name.
      */
     public void computeConsultFavory(String favorite) {
-        dto = favorites.get(favorite);
+        dto = favorites.get(favorites.getName(favorite).getKey());
         this.search = new Search(dto.getOrigin(), dto.getDestination());
         this.dataFavoris = search.getResultData();
         notifyObservers(this);
+    }
+
+    /**
+     * allows you to have the key of a favorite through its name.
+     *
+     * @param name favorite name.
+     * @return key of favorite name.
+     */
+    public int computeKey(String name) {
+        return favorites.getName(name).getKey();
     }
 
     /**
@@ -168,7 +178,7 @@ public class Model extends Observable {
      * @param favorite argument to enter.
      */
     public void computeDeletefavorite(String favorite) {
-        favorites.remove(favorite);
+        favorites.remove(favorites.getName(favorite).getKey());
         notifyObservers(dto);
     }
 
