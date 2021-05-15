@@ -212,7 +212,6 @@ public class Presenter implements Observer {
             } else {
                 model.updateFavorites(new FavoritesDto(model.computeKey(name), favoriteControl.getNewNam().getText(),
                         favoriteControl.getNouvelleOri().getValue(), favoriteControl.getNouvelleDes().getValue()));
-                //favoriteControl.getSearchFavaris().setItems(FXCollections.observableArrayList(model.getallFavoriteName()));
             }
 
         }
