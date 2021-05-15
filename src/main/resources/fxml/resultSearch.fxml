@@ -26,7 +26,7 @@
           <TableColumn fx:id="tLine" prefWidth="340.7999267578125" text="Lignes" />
         </columns>
       </TableView>
-      <Button fx:id="Addfavorites" layoutX="633.0" layoutY="507.0" mnemonicParsing="false"  text="Ajouter aux favoris">
+      <Button fx:id="Addfavorites" layoutX="633.0" layoutY="507.0" mnemonicParsing="false" text="Ajouter aux favoris">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -78,5 +78,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="notInsert" layoutX="663.0" layoutY="542.0" prefHeight="20.0" prefWidth="188.0" textFill="#ca0101">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

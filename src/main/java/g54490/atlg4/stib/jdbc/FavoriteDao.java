@@ -56,7 +56,11 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
     @Override
     public String insert(FavoritesDto item) {
         if (item == null) {
-            throw new IllegalArgumentException("Aucune élément donné en paramètre");
+            try {
+                throw new ExceptionsClasse("Aucune élément donné en paramètre");
+            } catch (ExceptionsClasse ex) {
+                Logger.getLogger(FavoriteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         String name = "";
         String sql = "INSERT INTO FAVORITES(name,origine,destination) values(?, ? ,?)";
@@ -70,7 +74,11 @@ public class FavoriteDao implements Dao<String, FavoritesDto> {
                 name = result.getString(1);
             }
         } catch (SQLException e) {
-            throw new IllegalArgumentException(e.getMessage());
+           try {
+                throw new ExceptionsClasse(e.getMessage());
+            } catch (ExceptionsClasse ex) {
+                Logger.getLogger(FavoriteDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return name;
     }

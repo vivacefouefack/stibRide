@@ -48,7 +48,22 @@ public class Model extends Observable {
      */
     public void initialize() throws IOException {
         this.searchData = stations.getStationName();
-        this.searchFavoryData = favorites.getFavoritesName();
+        this.searchFavoryData = FXCollections.observableArrayList(getallFavoriteName());
+    }
+
+    /**
+     * allows you to have the name of all the favorites.
+     *
+     * @return all favorites name.
+     */
+    public List<String> getallFavoriteName() {
+        List<String> favoriteName = new ArrayList();
+        List<FavoritesDto> stations;
+        stations = favorites.getAll();
+        for (FavoritesDto dto : stations) {
+            favoriteName.add(dto.getKey());
+        }
+        return favoriteName;
     }
 
     /**
@@ -70,25 +85,14 @@ public class Model extends Observable {
     }
 
     /**
-     * 
-     * @throws IOException 
-     */
-    public void setSearchData() throws IOException {
-        this.searchData =favorites.getFavoritesName();
-    }
-    
-    
-
-
-    /**
-     * 
-     * @param favorite 
+     * notify the view of a favorite update.
+     *
+     * @param favorite object to update.
      */
     public void updateFavorites(FavoritesDto favorite) {
         this.favorites.update(favorite);
         notifyObservers(favorites);
     }
-    
 
     /**
      * getter.
@@ -109,7 +113,8 @@ public class Model extends Observable {
     }
 
     /**
-     *
+     * notify the view if the my favorites tab is requested in order to display
+     * a new window.
      */
     public void computeNewFavoriteStage() {
         notifyObservers(1);
@@ -133,18 +138,12 @@ public class Model extends Observable {
      * notify presenter when finished.
      *
      * @param item favorite favorite to add.
-     */
-    
-    /**
-     * allows you to add a favorite received as a parameter in the database and
-     * notify presenter when finished.
-     * @param item  favorite favorite to add.
      * @throws IOException en cas d"erreur d'actualisation de la base de donnée.
      */
     public void computeAddFavory(FavoritesDto item) throws IOException {
         this.favorites.add(item);
-        this.searchFavoryData = favorites.getFavoritesName();
-        notifyObservers(dto.getKey());
+        this.searchFavoryData = FXCollections.observableArrayList(getallFavoriteName());
+        notifyObservers(item.getKey());
     }
 
     /**
@@ -159,7 +158,13 @@ public class Model extends Observable {
         this.dataFavoris = search.getResultData();
         notifyObservers(this);
     }
-    
+
+    /**
+     * allows you to delete a favorite received as a parameter and notifies the
+     * view once the deletion is complete.
+     *
+     * @param favorite argument to enter.
+     */
     public void computeDeletefavorite(String favorite) {
         favorites.remove(favorite);
         notifyObservers(dto);

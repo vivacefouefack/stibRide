@@ -4,8 +4,6 @@ import g54490.atlg4.stib.dto.FavoritesDto;
 import g54490.atlg4.stib.jdbc.FavoriteDao;
 import java.io.IOException;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  *
@@ -54,24 +52,8 @@ public class FavoriteRepository implements Repository<String, FavoritesDto> {
     }
 
     /**
-     * will search the database for the list of all stations.
-     *
-     * @return the list of all station names.
-     * @throws IOException if the connection attempt fails.
-     */
-    public ObservableList<String> getFavoritesName() throws IOException {
-        ObservableList<String> favoriteName = FXCollections.observableArrayList();
-        List<FavoritesDto> stations;
-        stations = getAll();
-        for (FavoritesDto dto : stations) {
-            favoriteName.add(dto.getKey());
-        }
-        return favoriteName;
-    }
-
-    /**
-     *
-     * @param item
+     * allows you to update a favorite.
+     * @param item faforite to update.
      */
     public void update(FavoritesDto item) {
         this.dao.update(item);

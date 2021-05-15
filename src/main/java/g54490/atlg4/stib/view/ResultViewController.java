@@ -43,6 +43,8 @@ public class ResultViewController implements Initializable {
     private Label smsConfirm;
     @FXML
     private Button quitter;
+    @FXML
+    private Label notInsert;
 
     /**
      * constructor of mainViewResultControl.
@@ -56,6 +58,7 @@ public class ResultViewController implements Initializable {
         this.favoryName=new TextField();
         this.smsErreur = new Label();
         this.smsConfirm = new Label();
+        this.notInsert=new Label();
     }
 
     @Override
@@ -139,6 +142,14 @@ public class ResultViewController implements Initializable {
      */
     public Label getSmsConfirm() {
         return smsConfirm;
+    }
+
+    /**
+     * getter.
+     * @return display error message if name favorite exist.
+     */
+    public Label getNotInsert() {
+        return notInsert;
     }
 
 }
