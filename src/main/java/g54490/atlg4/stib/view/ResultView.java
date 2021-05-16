@@ -27,10 +27,6 @@ public class ResultView extends Application {
         this.root = fxmlLoader.load();
     }
 
-    public Parent getRoot() {
-        return root;
-    }
-
     /**
      * getter.
      *

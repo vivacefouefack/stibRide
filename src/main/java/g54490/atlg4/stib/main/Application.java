@@ -2,12 +2,8 @@ package g54490.atlg4.stib.main;
 
 import g54490.atlg4.stib.model.Model;
 import g54490.atlg4.stib.presenter.Presenter;
-import g54490.atlg4.stib.view.FavoriteView;
-import g54490.atlg4.stib.view.FavoriteViewController;
 import g54490.atlg4.stib.view.MainView;
 import g54490.atlg4.stib.view.MainViewController;
-import g54490.atlg4.stib.view.ResultView;
-import g54490.atlg4.stib.view.ResultViewController;
 import javafx.stage.Stage;
 
 /**
