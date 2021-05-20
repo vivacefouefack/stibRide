@@ -1,0 +1,5 @@
+Main-Class: Application
+Class-Path: \target\projet-stibride-v-1.0.jar
+
+
+

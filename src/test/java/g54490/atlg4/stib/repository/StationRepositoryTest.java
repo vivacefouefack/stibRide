@@ -43,9 +43,9 @@ public class StationRepositoryTest {
         System.out.println("testGetExist");
         StationDto expected = merodeStatin;
         StationRepository repository = new StationRepository(mock);
-        StationDto result = repository.get(807);
+        StationDto result = repository.get(8072);
         assertEquals(expected, result);
-        Mockito.verify(mock, times(1)).select(807);
+        Mockito.verify(mock, times(1)).select(8072);
     }
     
 }
